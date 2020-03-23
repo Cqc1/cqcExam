@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.dao.ScoreDao">
+
+    <resultMap type="com.exam.entity.Score" id="ScoreMap">
+        <result property="scoreid" column="scoreId" jdbcType="INTEGER"/>
+        <result property="examid" column="examId" jdbcType="INTEGER"/>
+        <result property="stuid" column="stuId" jdbcType="INTEGER"/>
+        <result property="course" column="course" jdbcType="VARCHAR"/>
+        <result property="objscore" column="objScore" jdbcType="INTEGER"/>
+        <result property="subscore" column="subScore" jdbcType="INTEGER"/>
+        <result property="totalscore" column="totalScore" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ScoreMap">
+        select
+          scoreId, examId, stuId, course, objScore, subScore, totalScore
+        from cqc_exam.score
+        where scoreId = #{scoreid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ScoreMap">
+        select
+          scoreId, examId, stuId, course, objScore, subScore, totalScore
+        from cqc_exam.score
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ScoreMap">
+        select
+          scoreId, examId, stuId, course, objScore, subScore, totalScore
+        from cqc_exam.score
+        <where>
+            <if test="scoreid != null">
+                and scoreId = #{scoreid}
+            </if>
+            <if test="examid != null">
+                and examId = #{examid}
+            </if>
+            <if test="stuid != null">
+                and stuId = #{stuid}
+            </if>
+            <if test="course != null and course != ''">
+                and course = #{course}
+            </if>
+            <if test="objscore != null">
+                and objScore = #{objscore}
+            </if>
+            <if test="subscore != null">
+                and subScore = #{subscore}
+            </if>
+            <if test="totalscore != null">
+                and totalScore = #{totalscore}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="scoreid" useGeneratedKeys="true">
+        insert into cqc_exam.score(examId, stuId, course, objScore, subScore, totalScore)
+        values (#{examid}, #{stuid}, #{course}, #{objscore}, #{subscore}, #{totalscore})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update cqc_exam.score
+        <set>
+            <if test="examid != null">
+                examId = #{examid},
+            </if>
+            <if test="stuid != null">
+                stuId = #{stuid},
+            </if>
+            <if test="course != null and course != ''">
+                course = #{course},
+            </if>
+            <if test="objscore != null">
+                objScore = #{objscore},
+            </if>
+            <if test="subscore != null">
+                subScore = #{subscore},
+            </if>
+            <if test="totalscore != null">
+                totalScore = #{totalscore},
+            </if>
+        </set>
+        where scoreId = #{scoreid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from cqc_exam.score where scoreId = #{scoreid}
+    </delete>
+
+</mapper>

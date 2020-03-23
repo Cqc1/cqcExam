@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.dao.FillQuesDao">
+
+    <resultMap type="com.exam.entity.FillQues" id="FillQuesMap">
+        <result property="quesid" column="quesId" jdbcType="INTEGER"/>
+        <result property="courseid" column="courseId" jdbcType="INTEGER"/>
+        <result property="question" column="question" jdbcType="VARCHAR"/>
+        <result property="answer" column="answer" jdbcType="VARCHAR"/>
+        <result property="analysis" column="analysis" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="INTEGER"/>
+        <result property="chapter" column="chapter" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+        <result property="questype" column="quesType" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="findById" resultMap="FillQuesResultMap">
+      select * from fill_ques,course,questype where quesId = #{quesid} and course.courseId=fill_ques.courseId
+      and questype.quesType=fill_ques.quesType
+   </select>
+    <!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+    <resultMap type="com.exam.entity.FillQues" id="FillQuesResultMap">
+        <result property="quesid" column="quesId" jdbcType="INTEGER"/>
+        <result property="courseid" column="courseId" jdbcType="INTEGER"/>
+        <result property="question" column="question" jdbcType="VARCHAR"/>
+        <result property="answer" column="answer" jdbcType="VARCHAR"/>
+        <result property="analysis" column="analysis" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="INTEGER"/>
+        <result property="chapter" column="chapter" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+        <result property="questype" column="quesType" jdbcType="VARCHAR"/>
+        <association property="course" javaType="com.exam.entity.Course">
+            <id property="courseid" column="courseId"/>
+            <result property="couname" column="couName"/>
+        </association>
+        <association property="type" javaType="com.exam.entity.Questype">
+            <id property="questype" column="questype"/>
+            <result property="quesname" column="quesName"/>
+        </association>
+    </resultMap>
+</mapper>

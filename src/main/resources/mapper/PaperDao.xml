@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.dao.PaperDao">
+
+    <resultMap type="com.exam.entity.Paper" id="PaperMap">
+        <result property="paperid" column="paperId" jdbcType="INTEGER"/>
+        <result property="courseid" column="courseId" jdbcType="INTEGER"/>
+        <result property="totalscore" column="totalScore" jdbcType="INTEGER"/>
+        <result property="user" column="user" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="PaperResultMap">
+      select paper.paperId,paper.courseId,course.couName,paper.description,paper.totalScore,paper.user
+      from paper,course
+      where paper.courseId=course.courseId
+      group by paper.paperId,paper.courseId,paper.description,paper.totalScore,paper.user
+   </select>
+    <select id="findById" resultMap="PaperResultMap">
+      select paper.paperId,paper.courseId,course.couName,paper.description,paper.totalScore,paper.user
+      from paper,course
+      where paper.courseId=course.courseId and paper.paperId=#{paperid}
+      group by paper.paperId,paper.courseId,paper.description,paper.totalScore,paper.user
+   </select>
+    <select id="findByCourse" resultMap="PaperResultMap">
+      select paper.paperId,paper.courseId,course.couName,paper.description,paper.totalScore,paper.user
+      from paper,course
+      where paper.courseId=course.courseId and paper.courseId=#{courseid}
+      group by paper.paperId,paper.courseId,paper.description,paper.totalScore,paper.user
+   </select>
+    <select id="findByUser" resultMap="PaperResultMap">
+      select paper.paperId,paper.courseId,course.couName,paper.description,paper.totalScore,paper.user
+      from paper,course
+      where paper.courseId=course.courseId and paper.user=#{user}
+      group by paper.paperId,paper.courseId,paper.description,paper.totalScore,paper.user
+   </select>
+    <select id="findBypaperidDet" resultMap="PaperResultMap">
+      select paper.paperId,paper.courseId,course.couName,paper.description,paper.totalScore,paper.user,
+      questype.quesName as quesname,COUNT(ques_paper.quesType) as questypenum
+      from paper,course,questype,ques_paper
+      where paper.courseId=course.courseId and questype.quesType=ques_paper.quesType
+      and ques_paper.paperId=paper.paperId and paper.paperId=#{paperid}
+      group by paper.paperId,paper.courseId,paper.description,paper.totalScore,paper.user,quesname
+   </select>
+    <resultMap type="com.exam.entity.Paper" id="PaperResultMap">
+        <result property="paperid" column="paperId" jdbcType="INTEGER"/>
+        <result property="courseid" column="courseId" jdbcType="INTEGER"/>
+        <result property="totalscore" column="totalScore" jdbcType="INTEGER"/>
+        <result property="user" column="user" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <association property="course" javaType="com.exam.entity.Course">
+            <id property="courseid" column="courseId"/>
+            <result property="couname" column="couName"/>
+        </association>
+        <collection property="itemList" ofType="com.exam.vo.Item" >
+            <result property="paperid" column="paperid" />
+            <result property="courseid" column="courseid"/>
+            <result property="questype" column="questype"/>
+            <result property="quesnumer" column="quesnumer"/>
+            <result property="level" column="level"/>
+        </collection>
+        <collection property="quesNumberList" ofType="com.exam.vo.QuesNumber" >
+            <result property="paperid" column="paperid" />
+            <result property="quesname" column="quesname"/>
+            <result property="questypenum" column="questypenum"/>
+        </collection>
+    </resultMap>
+</mapper>

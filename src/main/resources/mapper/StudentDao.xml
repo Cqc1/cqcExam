@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.dao.StudentDao">
+
+    <resultMap type="com.exam.entity.Student" id="StudentMap">
+        <result property="stuid" column="stuId" jdbcType="INTEGER"/>
+        <result property="stuname" column="stuName" jdbcType="VARCHAR"/>
+        <result property="stupwd" column="stuPwd" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="classname" column="className" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="tel" column="tel" jdbcType="INTEGER"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--&lt;!&ndash;查询单个&ndash;&gt;
+    <select id="queryById" resultMap="StudentMap">
+        select
+          stuId, stuName, stuPwd, sex, className, email, tel, role
+        from cqc_exam.student
+        where stuId = #{stuid}
+    </select>
+
+    &lt;!&ndash;查询指定行数据&ndash;&gt;
+    <select id="queryAllByLimit" resultMap="StudentMap">
+        select
+          stuId, stuName, stuPwd, sex, className, email, tel, role
+        from cqc_exam.student
+        limit #{offset}, #{limit}
+    </select>
+
+    &lt;!&ndash;通过实体作为筛选条件查询&ndash;&gt;
+    <select id="queryAll" resultMap="StudentMap">
+        select
+          stuId, stuName, stuPwd, sex, className, email, tel, role
+        from cqc_exam.student
+        <where>
+            <if test="stuid != null">
+                and stuId = #{stuid}
+            </if>
+            <if test="stuname != null and stuname != ''">
+                and stuName = #{stuname}
+            </if>
+            <if test="stupwd != null and stupwd != ''">
+                and stuPwd = #{stupwd}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="classname != null and classname != ''">
+                and className = #{classname}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="tel != null">
+                and tel = #{tel}
+            </if>
+            <if test="role != null and role != ''">
+                and role = #{role}
+            </if>
+        </where>
+    </select>
+
+    &lt;!&ndash;新增所有列&ndash;&gt;
+    <insert id="insert" keyProperty="stuid" useGeneratedKeys="true">
+        insert into cqc_exam.student(stuName, stuPwd, sex, className, email, tel, role)
+        values (#{stuname}, #{stupwd}, #{sex}, #{classname}, #{email}, #{tel}, #{role})
+    </insert>
+
+    &lt;!&ndash;通过主键修改数据&ndash;&gt;
+    <update id="update">
+        update cqc_exam.student
+        <set>
+            <if test="stuname != null and stuname != ''">
+                stuName = #{stuname},
+            </if>
+            <if test="stupwd != null and stupwd != ''">
+                stuPwd = #{stupwd},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="classname != null and classname != ''">
+                className = #{classname},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="tel != null">
+                tel = #{tel},
+            </if>
+            <if test="role != null and role != ''">
+                role = #{role},
+            </if>
+        </set>
+        where stuId = #{stuid}
+    </update>
+
+    &lt;!&ndash;通过主键删除&ndash;&gt;
+    <delete id="deleteById">
+        delete from cqc_exam.student where stuId = #{stuid}
+    </delete>-->
+<!--    <select id="findAll" resultMap="StudentMap">-->
+<!--        select-->
+<!--          stuId, stuName, stuPwd, sex, className, email, tel, role-->
+<!--        from cqc_exam.student-->
+<!--    </select>-->
+</mapper>

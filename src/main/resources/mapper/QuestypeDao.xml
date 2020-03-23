@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.dao.QuestypeDao">
+
+    <resultMap type="com.exam.entity.Questype" id="QuestypeMap">
+        <result property="questype" column="quesType" jdbcType="INTEGER"/>
+        <result property="quesname" column="quesName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="QuestypeMap">
+        select
+          quesType, quesName
+        from cqc_exam.questype
+        where quesType = #{questype}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="QuestypeMap">
+        select
+          quesType, quesName
+        from cqc_exam.questype
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="QuestypeMap">
+        select
+          quesType, quesName
+        from cqc_exam.questype
+        <where>
+            <if test="questype != null">
+                and quesType = #{questype}
+            </if>
+            <if test="quesname != null and quesname != ''">
+                and quesName = #{quesname}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="questype" useGeneratedKeys="true">
+        insert into cqc_exam.questype(quesName)
+        values (#{quesname})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update cqc_exam.questype
+        <set>
+            <if test="quesname != null and quesname != ''">
+                quesName = #{quesname},
+            </if>
+        </set>
+        where quesType = #{questype}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from cqc_exam.questype where quesType = #{questype}
+    </delete>
+
+</mapper>

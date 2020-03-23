@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.dao.QuesDao">
+    <resultMap type="com.exam.vo.QuesVO" id="id" >
+        <result property="quesid" column="quesid" jdbcType="INTEGER"/>
+        <result property="question" column="question" jdbcType="VARCHAR"/>
+        <result property="couname" column="couname" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="VARCHAR"/>
+        <result property="chapter" column="chapter" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="questype" column="questype" jdbcType="VARCHAR"/>
+        <result property="courseid" column="courseid" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="findAll" resultMap="QuesResultMap">
+      select quesId as quesid,question, course.couName as couname, score, chapter,level, "单项选择题" as type, sing_ques.quesType as questype from sing_ques,course where sing_ques.courseId=course.courseId
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "多项选择题" as type,  mult_ques.quesType as questype from mult_ques,course where mult_ques.courseId=course.courseId
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "填空题" as type,   fill_ques.quesType as questype from fill_ques,course where fill_ques.courseId=course.courseId
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "判断题" as type,   judge_ques.quesType as questype from judge_ques,course where judge_ques.courseId=course.courseId
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "简答题等非客观题" as type, short_ques.quesType as questype from short_ques,course where short_ques.courseId=course.courseId
+   </select>
+    <select id="findByQues" resultMap="QuesResultMap">
+      select quesId as quesid,question, course.couName as couname, score, chapter,level, "单项选择题" as type,sing_ques.quesType as questype from sing_ques,course where sing_ques.courseId=course.courseId
+      and quesType=#{questype} and question=#{question}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "多项选择题" as type ,mult_ques.quesType as questype from mult_ques,course where mult_ques.courseId=course.courseId
+      and quesType=#{questype} and question=#{question}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "填空题" as type ,fill_ques.quesType as questype from fill_ques,course where fill_ques.courseId=course.courseId
+      and quesType=#{questype} and question=#{question}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "判断题" as type ,judge_ques.quesType as questype from judge_ques,course where judge_ques.courseId=course.courseId
+      and quesType=#{questype} and question=#{question}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "简答题等非客观题" as type ,short_ques.quesType as questype  from short_ques,course where short_ques.courseId=course.courseId
+      and quesType=#{questype} and question=#{question}
+   </select>
+    <select id="findByType" resultMap="QuesResultMap">
+      select quesId as quesid,question, course.couName as couname, score, chapter,level, "单项选择题" as type,sing_ques.quesType as questype from sing_ques,course where sing_ques.courseId=course.courseId
+      and quesType=#{questype}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "多项选择题" as type,mult_ques.quesType as questype from mult_ques,course where mult_ques.courseId=course.courseId
+      and quesType=#{questype}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "填空题" as type ,fill_ques.quesType as questype from fill_ques,course where fill_ques.courseId=course.courseId
+      and quesType=#{questype}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "判断题" as type ,judge_ques.quesType as questype from judge_ques,course where judge_ques.courseId=course.courseId
+      and quesType=#{questype}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "简答题等非客观题" as type,short_ques.quesType as questype from short_ques,course where short_ques.courseId=course.courseId
+      and quesType=#{questype}
+   </select>
+
+    <select id="findByCourse" resultMap="QuesResultMap">
+      select quesId as quesid,question, course.couName as couname, score, chapter,level, "单项选择题" as type,sing_ques.quesType as questype from sing_ques,course where sing_ques.courseId=course.courseId
+      and sing_ques.courseId=#{courseid}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "多项选择题" as type,mult_ques.quesType as questype from mult_ques,course where mult_ques.courseId=course.courseId
+      and mult_ques.courseId=#{courseid}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "填空题" as type ,fill_ques.quesType as questype from fill_ques,course where fill_ques.courseId=course.courseId
+      and fill_ques.courseId=#{courseid}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "判断题" as type ,judge_ques.quesType as questype from judge_ques,course where judge_ques.courseId=course.courseId
+      and judge_ques.courseId=#{courseid}
+      union select quesId as quesid, question,course.couName as couname, score, chapter,level, "简答题等非客观题" as type,short_ques.quesType as questype from short_ques,course where short_ques.courseId=course.courseId
+      and short_ques.courseId=#{courseid}
+   </select>
+    <!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+    <resultMap type="com.exam.vo.QuesVO" id="QuesResultMap">
+        <result property="quesid" column="quesid" jdbcType="INTEGER"/>
+        <result property="question" column="question" jdbcType="VARCHAR"/>
+        <result property="couname" column="couname" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="VARCHAR"/>
+        <result property="chapter" column="chapter" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="questype" column="questype" jdbcType="VARCHAR"/>
+        <result property="courseid" column="courseid" jdbcType="INTEGER"/>
+        <association property="course" javaType="com.exam.entity.Course">
+            <id property="courseid" column="courseId"/>
+            <result property="couname" column="couName"/>
+        </association>
+    </resultMap>
+</mapper>

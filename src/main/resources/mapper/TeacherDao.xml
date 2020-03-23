@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.dao.TeacherDao">
+
+    <resultMap type="com.exam.entity.Teacher" id="TeacherMap">
+        <result property="teaid" column="teaId" jdbcType="INTEGER"/>
+        <result property="teaname" column="teaName" jdbcType="VARCHAR"/>
+        <result property="teapwd" column="teaPwd" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="yuanname" column="yuanName" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="tel" column="tel" jdbcType="INTEGER"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TeacherMap">
+        select
+          teaId, teaName, teaPwd, sex, yuanName, email, tel, role
+        from cqc_exam.teacher
+        where teaId = #{teaid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TeacherMap">
+        select
+          teaId, teaName, teaPwd, sex, yuanName, email, tel, role
+        from cqc_exam.teacher
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TeacherMap">
+        select
+          teaId, teaName, teaPwd, sex, yuanName, email, tel, role
+        from cqc_exam.teacher
+        <where>
+            <if test="teaid != null">
+                and teaId = #{teaid}
+            </if>
+            <if test="teaname != null and teaname != ''">
+                and teaName = #{teaname}
+            </if>
+            <if test="teapwd != null and teapwd != ''">
+                and teaPwd = #{teapwd}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="yuanname != null and yuanname != ''">
+                and yuanName = #{yuanname}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="tel != null">
+                and tel = #{tel}
+            </if>
+            <if test="role != null and role != ''">
+                and role = #{role}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="teaid" useGeneratedKeys="true">
+        insert into cqc_exam.teacher(teaName, teaPwd, sex, yuanName, email, tel, role)
+        values (#{teaname}, #{teapwd}, #{sex}, #{yuanname}, #{email}, #{tel}, #{role})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update cqc_exam.teacher
+        <set>
+            <if test="teaname != null and teaname != ''">
+                teaName = #{teaname},
+            </if>
+            <if test="teapwd != null and teapwd != ''">
+                teaPwd = #{teapwd},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="yuanname != null and yuanname != ''">
+                yuanName = #{yuanname},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="tel != null">
+                tel = #{tel},
+            </if>
+            <if test="role != null and role != ''">
+                role = #{role},
+            </if>
+        </set>
+        where teaId = #{teaid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from cqc_exam.teacher where teaId = #{teaid}
+    </delete>
+
+</mapper>

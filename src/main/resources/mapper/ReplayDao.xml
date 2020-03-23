@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.dao.ReplayDao">
+
+    <resultMap type="com.exam.entity.Replay" id="ReplayMap">
+        <result property="messageid" column="messageId" jdbcType="INTEGER"/>
+        <result property="replayid" column="replayId" jdbcType="INTEGER"/>
+        <result property="replay" column="replay" jdbcType="VARCHAR"/>
+        <result property="replaytime" column="replayTime" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ReplayMap">
+        select
+          messageId, replayId, replay, replayTime
+        from cqc_exam.replay
+        where replayId = #{replayid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ReplayMap">
+        select
+          messageId, replayId, replay, replayTime
+        from cqc_exam.replay
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ReplayMap">
+        select
+          messageId, replayId, replay, replayTime
+        from cqc_exam.replay
+        <where>
+            <if test="messageid != null">
+                and messageId = #{messageid}
+            </if>
+            <if test="replayid != null">
+                and replayId = #{replayid}
+            </if>
+            <if test="replay != null and replay != ''">
+                and replay = #{replay}
+            </if>
+            <if test="replaytime != null">
+                and replayTime = #{replaytime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="replayid" useGeneratedKeys="true">
+        insert into cqc_exam.replay(messageId, replay, replayTime)
+        values (#{messageid}, #{replay}, #{replaytime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update cqc_exam.replay
+        <set>
+            <if test="messageid != null">
+                messageId = #{messageid},
+            </if>
+            <if test="replay != null and replay != ''">
+                replay = #{replay},
+            </if>
+            <if test="replaytime != null">
+                replayTime = #{replaytime},
+            </if>
+        </set>
+        where replayId = #{replayid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from cqc_exam.replay where replayId = #{replayid}
+    </delete>
+
+</mapper>
