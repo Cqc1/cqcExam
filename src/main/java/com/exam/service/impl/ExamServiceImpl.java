@@ -12,9 +12,9 @@ import java.util.List;
  * (Exam)表服务实现类
  *
  * @author chenqiancheng
- * @since 2020-03-12 20:53:27
+ * @since 2020-03-24 00:07:12
  */
-@Service
+@Service("examService")
 public class ExamServiceImpl implements ExamService {
     @Resource
     private ExamDao examDao;

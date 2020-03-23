@@ -53,11 +53,10 @@
             <result property="couname" column="couName"/>
         </association>
         <collection property="itemList" ofType="com.exam.vo.Item" >
-            <result property="paperid" column="paperid" />
             <result property="courseid" column="courseid"/>
-            <result property="questype" column="questype"/>
-            <result property="quesnumer" column="quesnumer"/>
             <result property="level" column="level"/>
+            <result property="user" column="user"/>
+            <result property="description" column="description"/>
         </collection>
         <collection property="quesNumberList" ofType="com.exam.vo.QuesNumber" >
             <result property="paperid" column="paperid" />

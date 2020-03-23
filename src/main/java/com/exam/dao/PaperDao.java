@@ -46,7 +46,7 @@ public interface PaperDao extends BaseMapper<Paper> {
      * @param paper 传递一个对象
      * @return 受影响的记录条数
      */
-    @Update("update paper set paperId=#{paperid},courseId = #{course.courseid},totalScore = #{totalscore},user = #{user}, " +
+    @Update("update paper set paperId=#{paperid},courseId = #{courseid},totalScore = #{totalscore},user = #{user}, " +
             "description = #{description} " +
             "where paperId = #{paperid}")
     int updatePaper(Paper paper);

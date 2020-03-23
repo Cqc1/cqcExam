@@ -1,20 +1,16 @@
 package com.exam.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.exam.entity.Exam;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 /**
  * (Exam)表数据库访问层
  *
  * @author chenqiancheng
- * @since 2020-03-12 20:53:27
+ * @since 2020-03-24 00:07:12
  */
-@Mapper
-public interface ExamDao extends BaseMapper<Exam> {
+public interface ExamDao {
 
     /**
      * 通过ID查询单条数据

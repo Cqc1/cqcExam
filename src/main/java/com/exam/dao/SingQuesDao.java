@@ -49,7 +49,7 @@ public interface SingQuesDao {
     int add(SingQues singques);
 
     //随机组卷获取试题
-    @Select("select quesId from sing_ques where courseId =#{courseid} order by rand() desc limit #{quesNum}")
-    List<Integer> findByCourse(Integer courseid,Integer quesNum);
+    @Select("select quesId from sing_ques where courseId =#{courseid} and level=#{level} order by rand() desc limit #{quesNum}")
+    List<Integer> findByCourse(Integer courseid,String level,Integer quesNum);
 
 }

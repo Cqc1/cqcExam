@@ -26,4 +26,7 @@ public interface MultQuesService {
 
     int add(MultQues multQues);
 
+    //随机组卷获取试题
+    List<Integer> findByCourse(Integer courseid,String level,Integer quesNum);
+
 }

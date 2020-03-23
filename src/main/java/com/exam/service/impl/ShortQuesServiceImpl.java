@@ -55,4 +55,9 @@ public class ShortQuesServiceImpl implements ShortQuesService {
     public int add(ShortQues shortQues) {
         return shortQuesDao.add(shortQues);
     }
+
+    @Override
+    public List<Integer> findByCourse(Integer questype, Integer courseid, String level, Integer quesNum) {
+        return shortQuesDao.findByCourse(questype,courseid,level,quesNum);
+    }
 }

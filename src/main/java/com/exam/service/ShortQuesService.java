@@ -28,4 +28,7 @@ public interface ShortQuesService {
 
     int add(ShortQues shortQues);
 
+    //随机组卷获取试题
+    List<Integer> findByCourse(Integer questype,Integer courseid,String level,Integer quesNum);
+
 }

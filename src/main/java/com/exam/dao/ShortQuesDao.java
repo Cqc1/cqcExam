@@ -52,6 +52,6 @@ public interface ShortQuesDao {
     int add(ShortQues shortQues);
 
     //随机组卷获取试题
-    @Select("select quesId from short_ques where quesType=#{questype} and courseId =#{courseid} order by rand() desc limit #{quesNum}")
-    List<Integer> findByCourse(Integer questype,Integer courseid,Integer quesNum);
+    @Select("select quesId from short_ques where quesType=#{questype} and courseId =#{courseid} and level=#{level} order by rand() desc limit #{quesNum}")
+    List<Integer> findByCourse(Integer questype,Integer courseid,String level,Integer quesNum);
 }

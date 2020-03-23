@@ -50,4 +50,9 @@ public class MultQuesServiceImpl implements MultQuesService {
     public int add(MultQues multQues) {
         return multQuesDao.add(multQues);
     }
+
+    @Override
+    public List<Integer> findByCourse(Integer courseid, String level, Integer quesNum) {
+        return multQuesDao.findByCourse(courseid,level,quesNum);
+    }
 }

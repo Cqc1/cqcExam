@@ -46,5 +46,5 @@ public class Paper implements Serializable {
 
     private Course course;
 
-    private  List<QuesNumber> quesNumberList;
+    private  List<QuesNumber> quesNumberList; //用于统计该试卷的各种题型的数量
 }

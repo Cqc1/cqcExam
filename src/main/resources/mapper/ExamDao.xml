@@ -5,7 +5,7 @@
     <resultMap type="com.exam.entity.Exam" id="ExamMap">
         <result property="examid" column="examId" jdbcType="INTEGER"/>
         <result property="paperid" column="paperId" jdbcType="INTEGER"/>
-        <result property="course" column="course" jdbcType="VARCHAR"/>
+        <result property="courseid" column="courseid" jdbcType="INTEGER"/>
         <result property="stuid" column="stuId" jdbcType="INTEGER"/>
         <result property="grade" column="grade" jdbcType="VARCHAR"/>
         <result property="term" column="term" jdbcType="VARCHAR"/>
@@ -21,7 +21,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="ExamMap">
         select
-          examId, paperId, course, stuId, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
+          examId, paperId, courseid, stuId, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
         from cqc_exam.exam
         where examId = #{examid}
     </select>
@@ -29,7 +29,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ExamMap">
         select
-          examId, paperId, course, stuId, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
+          examId, paperId, courseid, stuId, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
         from cqc_exam.exam
         limit #{offset}, #{limit}
     </select>
@@ -37,7 +37,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ExamMap">
         select
-          examId, paperId, course, stuId, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
+          examId, paperId, courseid, stuId, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
         from cqc_exam.exam
         <where>
             <if test="examid != null">
@@ -46,8 +46,8 @@
             <if test="paperid != null">
                 and paperId = #{paperid}
             </if>
-            <if test="course != null and course != ''">
-                and course = #{course}
+            <if test="courseid != null">
+                and courseid = #{courseid}
             </if>
             <if test="stuid != null">
                 and stuId = #{stuid}
@@ -84,8 +84,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="examid" useGeneratedKeys="true">
-        insert into cqc_exam.exam(paperId, course, stuId, grade, term, major, institution, exTime, exPlace, exDate, description, isExam)
-        values (#{paperid}, #{course}, #{stuid}, #{grade}, #{term}, #{major}, #{institution}, #{extime}, #{explace}, #{exdate}, #{description}, #{isexam})
+        insert into cqc_exam.exam(paperId, courseid, stuId, grade, term, major, institution, exTime, exPlace, exDate, description, isExam)
+        values (#{paperid}, #{courseid}, #{stuid}, #{grade}, #{term}, #{major}, #{institution}, #{extime}, #{explace}, #{exdate}, #{description}, #{isexam})
     </insert>
 
     <!--通过主键修改数据-->
@@ -95,8 +95,8 @@
             <if test="paperid != null">
                 paperId = #{paperid},
             </if>
-            <if test="course != null and course != ''">
-                course = #{course},
+            <if test="courseid != null">
+                courseid = #{courseid},
             </if>
             <if test="stuid != null">
                 stuId = #{stuid},

@@ -1,6 +1,7 @@
 package com.exam.controller;
 
 import com.exam.entity.ApiResult;
+import com.exam.entity.QuesPaper;
 import com.exam.service.QuesPaperService;
 import com.exam.util.ApiResultHandler;
 import com.exam.vo.QuesNumber;
@@ -29,6 +30,16 @@ public class QuesPaperController {
     @GetMapping("/que_paper/{paperid}")
     public ApiResult findById(@PathVariable("paperid") Integer paperid) {
         List<QuesNumber> res = quesPaperService.findNumById(paperid);
+        if (res != null) {
+            return ApiResultHandler.buildApiResult(200,"请求成功",res);
+        } else {
+            return ApiResultHandler.buildApiResult(404,"查询的试卷不存在",null);
+        }
+    }
+    /*根据试卷id来查询各种试题的分值*/
+    @GetMapping("/que_paper/score/{paperid}")
+    public ApiResult findByScoreId(@PathVariable("paperid") Integer paperid) {
+        QuesPaper res = quesPaperService.findScoreById(paperid);
         if (res != null) {
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
         } else {

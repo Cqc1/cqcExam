@@ -46,7 +46,7 @@ public interface FillQuesDao {
             "(#{courseid},#{question},#{answer},#{analysis},#{score},#{chapter},#{level})")
     int add(FillQues fillques);
     //随机组卷获取试题
-    @Select("select quesId from fill_ques where courseId =#{courseid} order by rand() desc limit #{quesNum}")
-    List<Integer> findByCourse(Integer courseid,Integer quesNum);
+    @Select("select quesId from fill_ques where courseId =#{courseid} and level=#{level} order by rand() desc limit #{quesNum}")
+    List<Integer> findByCourse(Integer courseid,String level,Integer quesNum);
 
 }

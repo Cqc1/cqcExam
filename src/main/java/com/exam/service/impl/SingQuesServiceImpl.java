@@ -50,4 +50,9 @@ public class SingQuesServiceImpl implements SingQuesService {
     public int add(SingQues singQues) {
         return singQuesDao.add(singQues);
     }
+
+    @Override
+    public List<Integer> findByCourse(Integer courseid, String level, Integer quesNum) {
+        return singQuesDao.findByCourse(courseid,level,quesNum);
+    }
 }

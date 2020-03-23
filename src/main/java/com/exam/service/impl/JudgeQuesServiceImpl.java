@@ -50,4 +50,9 @@ public class JudgeQuesServiceImpl implements JudgeQuesService {
     public int add(JudgeQues judgeQues) {
         return judgeQuesDao.add(judgeQues);
     }
+
+    @Override
+    public List<Integer> findByCourse(Integer courseid, String level, Integer quesNum) {
+        return judgeQuesDao.findByCourse(courseid,level,quesNum);
+    }
 }
