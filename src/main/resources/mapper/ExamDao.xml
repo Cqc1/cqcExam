@@ -6,7 +6,7 @@
         <result property="examid" column="examId" jdbcType="INTEGER"/>
         <result property="paperid" column="paperId" jdbcType="INTEGER"/>
         <result property="courseid" column="courseid" jdbcType="INTEGER"/>
-        <result property="stuid" column="stuId" jdbcType="INTEGER"/>
+        <result property="stuid" column="stuId" jdbcType="VARCHAR"/>
         <result property="grade" column="grade" jdbcType="VARCHAR"/>
         <result property="term" column="term" jdbcType="VARCHAR"/>
         <result property="major" column="major" jdbcType="VARCHAR"/>
@@ -15,15 +15,51 @@
         <result property="explace" column="exPlace" jdbcType="VARCHAR"/>
         <result property="exdate" column="exDate" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
-        <result property="isexam" column="isExam" jdbcType="VARCHAR"/>
+        <result property="isexam" column="isExam" jdbcType="INTEGER"/>
     </resultMap>
 
-    <!--查询单个-->
-    <select id="queryById" resultMap="ExamMap">
+    <resultMap type="com.exam.entity.Exam" id="ExamResultMap">
+        <result property="examid" column="examId" jdbcType="INTEGER"/>
+        <result property="paperid" column="paperId" jdbcType="INTEGER"/>
+        <result property="courseid" column="courseid" jdbcType="INTEGER"/>
+        <result property="stuid" column="stuId" jdbcType="VARCHAR"/>
+        <result property="grade" column="grade" jdbcType="VARCHAR"/>
+        <result property="term" column="term" jdbcType="VARCHAR"/>
+        <result property="major" column="major" jdbcType="VARCHAR"/>
+        <result property="institution" column="institution" jdbcType="VARCHAR"/>
+        <result property="extime" column="exTime" jdbcType="INTEGER"/>
+        <result property="explace" column="exPlace" jdbcType="VARCHAR"/>
+        <result property="exdate" column="exDate" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="isexam" column="isExam" jdbcType="INTEGER"/>
+        <association property="course" javaType="com.exam.entity.Course">
+            <id property="courseid" column="courseId"/>
+            <result property="couname" column="couName"/>
+        </association>
+        <association property="paper" javaType="com.exam.entity.Paper">
+            <id property="paperid" column="paperId"/>
+            <result property="courseid" column="courseId"/>
+            <result property="totalscore" column="totalScore"/>
+        </association>
+    </resultMap>
+
+
+    <!--查询所有-->
+    <select id="findAll" resultMap="ExamResultMap">
         select
-          examId, paperId, courseid, stuId, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
-        from cqc_exam.exam
-        where examId = #{examid}
+          examId, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
+           stuId, grade, term, major, institution, exTime, exPlace, exDate, paper.description, isExam
+        from exam,paper,course
+        where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="ExamResultMap">
+        select
+          examId, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
+          stuId, grade, term, major, institution, exTime, exPlace, exDate, paper.description, isExam
+        from exam,paper,course
+        where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
+        and examId = #{examid}
     </select>
 
     <!--查询指定行数据-->
@@ -49,7 +85,7 @@
             <if test="courseid != null">
                 and courseid = #{courseid}
             </if>
-            <if test="stuid != null">
+            <if test="stuid != null and stuid != ''">
                 and stuId = #{stuid}
             </if>
             <if test="grade != null and grade != ''">
@@ -76,7 +112,7 @@
             <if test="description != null and description != ''">
                 and description = #{description}
             </if>
-            <if test="isexam != null and isexam != ''">
+            <if test="isexam != null">
                 and isExam = #{isexam}
             </if>
         </where>
@@ -98,7 +134,7 @@
             <if test="courseid != null">
                 courseid = #{courseid},
             </if>
-            <if test="stuid != null">
+            <if test="stuid != null and stuid != ''">
                 stuId = #{stuid},
             </if>
             <if test="grade != null and grade != ''">
@@ -125,7 +161,7 @@
             <if test="description != null and description != ''">
                 description = #{description},
             </if>
-            <if test="isexam != null and isexam != ''">
+            <if test="isexam != null">
                 isExam = #{isexam},
             </if>
         </set>

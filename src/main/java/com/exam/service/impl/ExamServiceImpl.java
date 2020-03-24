@@ -1,5 +1,7 @@
 package com.exam.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.Exam;
 import com.exam.dao.ExamDao;
 import com.exam.service.ExamService;
@@ -12,12 +14,17 @@ import java.util.List;
  * (Exam)表服务实现类
  *
  * @author chenqiancheng
- * @since 2020-03-24 00:07:12
+ * @since 2020-03-24 15:00:28
  */
 @Service("examService")
 public class ExamServiceImpl implements ExamService {
     @Resource
     private ExamDao examDao;
+
+    @Override
+    public IPage<Exam> findAll(Page page) {
+        return examDao.findAll(page);
+    }
 
     /**
      * 通过ID查询单条数据

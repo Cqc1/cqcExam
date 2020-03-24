@@ -2,34 +2,38 @@ package com.exam.dao;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.exam.entity.Exam;
+import com.exam.entity.Institution;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * (Exam)表数据库访问层
+ * (Institution)表数据库访问层
  *
  * @author chenqiancheng
- * @since 2020-03-24 15:00:28
+ * @since 2020-03-24 19:55:10
  */
-public interface ExamDao {
-
+public interface InstitutionDao {
 
     /**
-     * 分页查询所有试卷
+     * 分页查询所有院系
      * @param page
      * @return List<Paper>
      */
-    IPage<Exam> findAll(Page page);
+    IPage<Institution> findAll(Page page);
 
+    /**
+     * 不分页查询所有院系
+     * @return List<Paper>
+     */
+    List<Institution> selectAll();
     /**
      * 通过ID查询单条数据
      *
-     * @param examid 主键
+     * @param institutionid 主键
      * @return 实例对象
      */
-    Exam queryById(Integer examid);
+    Institution queryById(Integer institutionid);
 
     /**
      * 查询指定行数据
@@ -38,39 +42,39 @@ public interface ExamDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Exam> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Institution> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param exam 实例对象
+     * @param institution 实例对象
      * @return 对象列表
      */
-    List<Exam> queryAll(Exam exam);
+    List<Institution> queryAll(Institution institution);
 
     /**
      * 新增数据
      *
-     * @param exam 实例对象
+     * @param institution 实例对象
      * @return 影响行数
      */
-    int insert(Exam exam);
+    int insert(Institution institution);
 
     /**
      * 修改数据
      *
-     * @param exam 实例对象
+     * @param institution 实例对象
      * @return 影响行数
      */
-    int update(Exam exam);
+    int update(Institution institution);
 
     /**
      * 通过主键删除数据
      *
-     * @param examid 主键
+     * @param institutionid 主键
      * @return 影响行数
      */
-    int deleteById(Integer examid);
+    int deleteById(Integer institutionid);
 
 }

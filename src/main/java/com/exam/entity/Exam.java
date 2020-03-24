@@ -1,15 +1,22 @@
 package com.exam.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
 /**
  * (Exam)实体类
  *
  * @author chenqiancheng
- * @since 2020-03-24 00:07:12
+ * @since 2020-03-24 15:00:28
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Exam implements Serializable {
-    private static final long serialVersionUID = 681318088697793865L;
+    private static final long serialVersionUID = 522611749059267463L;
     /**
     * 考试编号
     */
@@ -25,7 +32,7 @@ public class Exam implements Serializable {
     /**
     * 考生学号
     */
-    private Integer stuid;
+    private String stuid;
     /**
     * 年级
     */
@@ -61,111 +68,10 @@ public class Exam implements Serializable {
     /**
     * 是否已考
     */
-    private String isexam;
+    private Integer isexam;
 
+    private Paper paper;
 
-    public Integer getExamid() {
-        return examid;
-    }
-
-    public void setExamid(Integer examid) {
-        this.examid = examid;
-    }
-
-    public Integer getPaperid() {
-        return paperid;
-    }
-
-    public void setPaperid(Integer paperid) {
-        this.paperid = paperid;
-    }
-
-    public Integer getCourseid() {
-        return courseid;
-    }
-
-    public void setCourseid(Integer courseid) {
-        this.courseid = courseid;
-    }
-
-    public Integer getStuid() {
-        return stuid;
-    }
-
-    public void setStuid(Integer stuid) {
-        this.stuid = stuid;
-    }
-
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
-    public String getTerm() {
-        return term;
-    }
-
-    public void setTerm(String term) {
-        this.term = term;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    public String getInstitution() {
-        return institution;
-    }
-
-    public void setInstitution(String institution) {
-        this.institution = institution;
-    }
-
-    public Integer getExtime() {
-        return extime;
-    }
-
-    public void setExtime(Integer extime) {
-        this.extime = extime;
-    }
-
-    public String getExplace() {
-        return explace;
-    }
-
-    public void setExplace(String explace) {
-        this.explace = explace;
-    }
-
-    public String getExdate() {
-        return exdate;
-    }
-
-    public void setExdate(String exdate) {
-        this.exdate = exdate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getIsexam() {
-        return isexam;
-    }
-
-    public void setIsexam(String isexam) {
-        this.isexam = isexam;
-    }
+    private Course course;
 
 }

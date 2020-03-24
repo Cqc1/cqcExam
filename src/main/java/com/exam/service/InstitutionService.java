@@ -2,27 +2,29 @@ package com.exam.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.exam.entity.Exam;
+import com.exam.entity.Institution;
 
 import java.util.List;
 
 /**
- * (Exam)表服务接口
+ * (Institution)表服务接口
  *
  * @author chenqiancheng
- * @since 2020-03-24 15:00:28
+ * @since 2020-03-24 19:55:10
  */
-public interface ExamService {
+public interface InstitutionService {
 
-    IPage<Exam> findAll(Page page);
+    IPage<Institution> findAll(Page page);
+
+    List<Institution> selectAll();
 
     /**
      * 通过ID查询单条数据
      *
-     * @param examid 主键
+     * @param institutionid 主键
      * @return 实例对象
      */
-    Exam queryById(Integer examid);
+    Institution queryById(Integer institutionid);
 
     /**
      * 查询多条数据
@@ -31,30 +33,30 @@ public interface ExamService {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Exam> queryAllByLimit(int offset, int limit);
+    List<Institution> queryAllByLimit(int offset, int limit);
 
     /**
      * 新增数据
      *
-     * @param exam 实例对象
+     * @param institution 实例对象
      * @return 实例对象
      */
-    Exam insert(Exam exam);
+    Institution insert(Institution institution);
 
     /**
      * 修改数据
      *
-     * @param exam 实例对象
+     * @param institution 实例对象
      * @return 实例对象
      */
-    Exam update(Exam exam);
+    Institution update(Institution institution);
 
     /**
      * 通过主键删除数据
      *
-     * @param examid 主键
+     * @param institutionid 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer examid);
+    boolean deleteById(Integer institutionid);
 
 }

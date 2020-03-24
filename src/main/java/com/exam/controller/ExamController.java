@@ -10,7 +10,7 @@ import javax.annotation.Resource;
  * (Exam)表控制层
  *
  * @author chenqiancheng
- * @since 2020-03-24 00:07:12
+ * @since 2020-03-24 15:00:28
  */
 @RestController
 @RequestMapping("exam")
@@ -24,12 +24,12 @@ public class ExamController {
     /**
      * 通过主键查询单条数据
      *
-     * @param id 主键
+     * @param examid 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public Exam selectOne(Integer id) {
-        return this.examService.queryById(id);
+    @GetMapping("selectOne/{examid}")
+    public Exam selectOne(@PathVariable("examid")Integer examid) {
+        return this.examService.queryById(examid);
     }
 
 }
