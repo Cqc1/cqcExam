@@ -14,18 +14,54 @@ import java.util.List;
  */
 public interface StudentService {
 
+    List<Student> findByName(String stuname);
 
-    IPage<Student> findAll(Page<Student> page);
+    IPage<Student> findAll(Page page);
 
-    Student findById(Integer studentId);
+    List<Student> selectAll();
 
-    List<Student> findByName(String studentName);
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param studentid 主键
+     * @return 实例对象
+     */
+    Student queryById(Integer studentid);
 
-    int deleteById(Integer studentId);
+    List<Student> queryByClazzId(Integer clazzid);
 
+    /**
+     * 查询多条数据
+     *
+     * @param offset 查询起始位置
+     * @param limit 查询条数
+     * @return 对象列表
+     */
+    List<Student> queryAllByLimit(int offset, int limit);
+
+    /**
+     * 新增数据
+     *
+     * @param student 实例对象
+     * @return 实例对象
+     */
+    int insert(Student student);
+
+    /**
+     * 修改数据
+     *
+     * @param student 实例对象
+     * @return 实例对象
+     */
     int update(Student student);
 
     int updatePwd(Student student);
 
-    int add(Student student);
+    /**
+     * 通过主键删除数据
+     *
+     * @param studentid 主键
+     * @return 是否成功
+     */
+    int deleteById(Integer studentid);
 }

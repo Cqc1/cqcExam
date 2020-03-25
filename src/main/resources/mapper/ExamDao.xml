@@ -9,8 +9,8 @@
         <result property="stuid" column="stuId" jdbcType="VARCHAR"/>
         <result property="grade" column="grade" jdbcType="VARCHAR"/>
         <result property="term" column="term" jdbcType="VARCHAR"/>
-        <result property="major" column="major" jdbcType="VARCHAR"/>
-        <result property="institution" column="institution" jdbcType="VARCHAR"/>
+        <result property="majorid" column="majorId" jdbcType="INTEGER"/>
+        <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
         <result property="extime" column="exTime" jdbcType="INTEGER"/>
         <result property="explace" column="exPlace" jdbcType="VARCHAR"/>
         <result property="exdate" column="exDate" jdbcType="VARCHAR"/>
@@ -25,8 +25,8 @@
         <result property="stuid" column="stuId" jdbcType="VARCHAR"/>
         <result property="grade" column="grade" jdbcType="VARCHAR"/>
         <result property="term" column="term" jdbcType="VARCHAR"/>
-        <result property="major" column="major" jdbcType="VARCHAR"/>
-        <result property="institution" column="institution" jdbcType="VARCHAR"/>
+        <result property="majorid" column="majorId" jdbcType="INTEGER"/>
+        <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
         <result property="extime" column="exTime" jdbcType="INTEGER"/>
         <result property="explace" column="exPlace" jdbcType="VARCHAR"/>
         <result property="exdate" column="exDate" jdbcType="VARCHAR"/>
@@ -41,6 +41,15 @@
             <result property="courseid" column="courseId"/>
             <result property="totalscore" column="totalScore"/>
         </association>
+        <association property="major" javaType="com.exam.entity.Major">
+            <id property="majorid" column="majorid"/>
+            <result property="major" column="major"/>
+            <result property="institutionid" column="institutionid"/>
+        </association>
+        <association property="institution" javaType="com.exam.entity.Institution">
+            <id property="institutionid" column="institutionid"/>
+            <result property="instituname" column="instituname"/>
+        </association>
     </resultMap>
 
 
@@ -48,18 +57,34 @@
     <select id="findAll" resultMap="ExamResultMap">
         select
           examId, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
-           stuId, grade, term, major, institution, exTime, exPlace, exDate, paper.description, isExam
-        from exam,paper,course
+           stuId, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
+           major.major as major,institution.instituName as instituname
+        from exam,paper,course,major,institution
         where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
+        and exam.majorId=major.majorId and exam.institutionId=institution.institutionId
     </select>
     <!--查询单个-->
     <select id="queryById" resultMap="ExamResultMap">
         select
           examId, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
-          stuId, grade, term, major, institution, exTime, exPlace, exDate, paper.description, isExam
-        from exam,paper,course
+           stuId, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
+           major.major as major,institution.instituName as instituname
+        from exam,paper,course,major,institution
         where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
+        and exam.majorId=major.majorId and exam.institutionId=institution.institutionId
         and examId = #{examid}
+    </select>
+
+    <!--通过专业id查询单个-->
+    <select id="querByMajorId" resultMap="ExamResultMap">
+        select
+          examId, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
+           stuId, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
+           major.major as major,institution.instituName as instituname
+        from exam,paper,course,major,institution
+        where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
+        and exam.majorId=major.majorId and exam.institutionId=institution.institutionId
+        and exam.majorId = #{majorid}
     </select>
 
     <!--查询指定行数据-->
@@ -120,8 +145,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="examid" useGeneratedKeys="true">
-        insert into cqc_exam.exam(paperId, courseid, stuId, grade, term, major, institution, exTime, exPlace, exDate, description, isExam)
-        values (#{paperid}, #{courseid}, #{stuid}, #{grade}, #{term}, #{major}, #{institution}, #{extime}, #{explace}, #{exdate}, #{description}, #{isexam})
+        insert into cqc_exam.exam(paperId, courseid, stuId, grade, term, majorId, institutionId, exTime, exPlace, exDate, description, isExam)
+        values (#{paperid}, #{courseid}, #{stuid}, #{grade}, #{term}, #{majorid}, #{institutionid}, #{extime}, #{explace}, #{exdate}, #{description}, #{isexam})
     </insert>
 
     <!--通过主键修改数据-->
@@ -143,11 +168,11 @@
             <if test="term != null and term != ''">
                 term = #{term},
             </if>
-            <if test="major != null and major != ''">
-                major = #{major},
+            <if test="majorid != null and majorid != ''">
+                majorId = #{majorid},
             </if>
-            <if test="institution != null and institution != ''">
-                institution = #{institution},
+            <if test="institutionid != null and institutionid != ''">
+                institutionId = #{institutionid},
             </if>
             <if test="extime != null">
                 exTime = #{extime},

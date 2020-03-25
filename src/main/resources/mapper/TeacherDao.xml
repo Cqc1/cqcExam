@@ -7,32 +7,60 @@
         <result property="teaname" column="teaName" jdbcType="VARCHAR"/>
         <result property="teapwd" column="teaPwd" jdbcType="VARCHAR"/>
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
-        <result property="yuanname" column="yuanName" jdbcType="VARCHAR"/>
+        <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="tel" column="tel" jdbcType="INTEGER"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <!--查询单个-->
-    <select id="queryById" resultMap="TeacherMap">
-        select
-          teaId, teaName, teaPwd, sex, yuanName, email, tel, role
-        from cqc_exam.teacher
-        where teaId = #{teaid}
-    </select>
+    <resultMap type="com.exam.entity.Teacher" id="TeacherResultMap">
+        <result property="teaid" column="teaId" jdbcType="INTEGER"/>
+        <result property="teaname" column="teaName" jdbcType="VARCHAR"/>
+        <result property="teapwd" column="teaPwd" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="tel" column="tel" jdbcType="INTEGER"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+        <association property="institution" javaType="com.exam.entity.Institution">
+            <id property="institutionid" column="institutionid"/>
+            <result property="instituname" column="instituname"/>
+        </association>
+    </resultMap>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="TeacherMap">
+    <!--分页查询所有信息-->
+    <select id="findAll" resultMap="TeacherResultMap">
         select
-          teaId, teaName, teaPwd, sex, yuanName, email, tel, role
+          teaId, teaName, teaPwd, sex, cqc_exam.teacher.institutionId, email, tel, role,institution.instituName as instituname
+        from cqc_exam.teacher,institution
+        where  cqc_exam.teacher.institutionId=institution.institutionId
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="TeacherResultMap">
+        select
+          teaId, teaName, teaPwd, sex, cqc_exam.teacher.institutionId, email, tel, role,institution.instituName as instituname
+        from cqc_exam.teacher,institution
+        where teaId = #{teaid} and cqc_exam.teacher.institutionId=institution.institutionId
+    </select>
+    <!--通过院系id查询单个-->
+    <select id="queryByinstituteId" resultMap="TeacherResultMap">
+         select
+          teaId, teaName, teaPwd, sex, cqc_exam.teacher.institutionId, email, tel, role,institution.instituName as instituname
+        from cqc_exam.teacher,institution
+        and cqc_exam.teacher.institutionId = #{institutionid}
+    </select>
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TeacherResultMap">
+        select
+          teaId, teaName, teaPwd, sex, institutionId, email, tel, role
         from cqc_exam.teacher
         limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="TeacherMap">
+    <select id="queryAll" resultMap="TeacherResultMap">
         select
-          teaId, teaName, teaPwd, sex, yuanName, email, tel, role
+          teaId, teaName, teaPwd, sex, institutionId, email, tel, role
         from cqc_exam.teacher
         <where>
             <if test="teaid != null">
@@ -47,8 +75,8 @@
             <if test="sex != null and sex != ''">
                 and sex = #{sex}
             </if>
-            <if test="yuanname != null and yuanname != ''">
-                and yuanName = #{yuanname}
+            <if test="institutionid != null and institutionid != ''">
+                and institutionId = #{institutionid}
             </if>
             <if test="email != null and email != ''">
                 and email = #{email}
@@ -64,8 +92,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="teaid" useGeneratedKeys="true">
-        insert into cqc_exam.teacher(teaName, teaPwd, sex, yuanName, email, tel, role)
-        values (#{teaname}, #{teapwd}, #{sex}, #{yuanname}, #{email}, #{tel}, #{role})
+        insert into cqc_exam.teacher(teaName, teaPwd, sex, institutionId, email, tel, role)
+        values (#{teaname}, #{teapwd}, #{sex}, #{institutionid}, #{email}, #{tel}, #{role})
     </insert>
 
     <!--通过主键修改数据-->
@@ -81,8 +109,8 @@
             <if test="sex != null and sex != ''">
                 sex = #{sex},
             </if>
-            <if test="yuanname != null and yuanname != ''">
-                yuanName = #{yuanname},
+            <if test="institutionid != null and institutionid != ''">
+                institutionId = #{institutionid},
             </if>
             <if test="email != null and email != ''">
                 email = #{email},

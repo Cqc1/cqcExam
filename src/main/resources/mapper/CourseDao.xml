@@ -6,19 +6,57 @@
         <result property="courseid" column="courseId" jdbcType="INTEGER"/>
         <result property="couname" column="couName" jdbcType="VARCHAR"/>
         <result property="couperiod" column="couPeriod" jdbcType="INTEGER"/>
+        <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
         <result property="credit" column="credit" jdbcType="INTEGER"/>
     </resultMap>
 
-    <!--查询单个-->
-    <select id="queryById" resultMap="CourseMap">
+    <resultMap type="com.exam.entity.Course" id="CourseResultMap">
+        <result property="courseid" column="courseId" jdbcType="INTEGER"/>
+        <result property="couname" column="couName" jdbcType="VARCHAR"/>
+        <result property="couperiod" column="couPeriod" jdbcType="INTEGER"/>
+        <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
+        <result property="credit" column="credit" jdbcType="INTEGER"/>
+        <association property="institution" javaType="com.exam.entity.Institution">
+            <id property="institutionid" column="institutionid"/>
+            <result property="instituname" column="instituname"/>
+        </association>
+    </resultMap>
+
+    <!--分页查询所有信息-->
+    <select id="findAll" resultMap="CourseResultMap">
         select
-          courseId, couName, couPeriod, credit
-        from cqc_exam.course
-        where courseId = #{courseid}
+         courseId, couName, couPeriod, credit, cqc_exam.course.institutionId,institution.instituName as instituname
+        from cqc_exam.course,institution
+        where  cqc_exam.course.institutionId=institution.institutionId
+    </select>
+    <!--不分页查询所有信息-->
+    <!--<select id="selectAll" resultMap="CourseResultMap">
+        select
+         majorId, major, cqc_exam.major.institutionId,institution.instituName as instituname
+        from cqc_exam.major,institution
+        where  major.institutionId=institution.institutionId
+    </select>-->
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CourseResultMap">
+        select
+         courseId, couName, couPeriod, credit, cqc_exam.course.institutionId,institution.instituName as instituname
+        from cqc_exam.course,institution
+        where  cqc_exam.course.institutionId=institution.institutionId
+        and courseId = #{courseid}
+    </select>
+
+    <!--通过院系id查询单个-->
+    <select id="queryByinstituteId" resultMap="CourseResultMap">
+        select
+         courseId, couName, couPeriod, credit, cqc_exam.course.institutionId,institution.instituName as instituname
+        from cqc_exam.course,institution
+        where  cqc_exam.course.institutionId=institution.institutionId
+        and cqc_exam.course.institutionId = #{institutionid}
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="CourseMap">
+    <select id="queryAllByLimit" resultMap="CourseResultMap">
         select
           courseId, couName, couPeriod, credit
         from cqc_exam.course
@@ -26,7 +64,7 @@
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="CourseMap">
+    <select id="queryAll" resultMap="CourseResultMap">
         select
           courseId, couName, couPeriod, credit
         from cqc_exam.course
@@ -48,8 +86,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="courseid" useGeneratedKeys="true">
-        insert into cqc_exam.course(couName, couPeriod, credit)
-        values (#{couname}, #{couperiod}, #{credit})
+        insert into cqc_exam.course(couName, couPeriod, credit,institutionId)
+        values (#{couname}, #{couperiod}, #{credit},#{institutionid})
     </insert>
 
     <!--通过主键修改数据-->
@@ -64,6 +102,9 @@
             </if>
             <if test="credit != null">
                 credit = #{credit},
+            </if>
+            <if test="institutionid != null">
+                institutionId = #{institutionid},
             </if>
         </set>
         where courseId = #{courseid}

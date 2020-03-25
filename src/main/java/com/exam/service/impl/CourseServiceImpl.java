@@ -21,36 +21,48 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseDao courseDao;
 
-
-    @Override
-    public IPage<Course> findAll(Page<Course> page) {
-        return courseDao.findAll(page);
-    }
-
-    @Override
-    public List<Course> findALLInfo() {
-        return courseDao.findAllInfo();
-    }
-
-    @Override
-    public Course findById(Integer courseId) {
-        return courseDao.findById(courseId);
-    }
-
     @Override
     public List<Course> findByName(String courseName) { return courseDao.findByName(courseName);
     }
 
     @Override
-    public int deleteById(Integer courseId) {
-        return courseDao.deletebyId(courseId);
+    public IPage<Course> findAll(Page page) {
+        return courseDao.findAll(page);
     }
 
     @Override
-    public int update(Course course) { return courseDao.updateCou(course); }
+    public List<Course> selectAll() {
+        return courseDao.findAll();
+    }
 
     @Override
-    public int add(Course course) {
-        return courseDao.add(course);
+    public Course queryById(Integer courseid) {
+        return courseDao.queryById(courseid);
     }
+
+    @Override
+    public List<Course> queryByInstituId(Integer institutionid) {
+        return courseDao.queryByinstituteId(institutionid);
+    }
+
+    @Override
+    public List<Course> queryAllByLimit(int offset, int limit) {
+        return courseDao.queryAllByLimit(offset,limit);
+    }
+
+    @Override
+    public int insert(Course course) {
+        return courseDao.insert(course);
+    }
+
+    @Override
+    public int update(Course course) {
+        return courseDao.update(course);
+    }
+
+    @Override
+    public int deleteById(Integer courseid) {
+        return courseDao.deleteById(courseid);
+    }
+
 }

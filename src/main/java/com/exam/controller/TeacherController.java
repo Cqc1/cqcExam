@@ -35,7 +35,7 @@ public class TeacherController {
 
     @GetMapping("/teacher/{teacherId}")
     public ApiResult findById(@PathVariable("teacherId") Integer teacherId){
-        return ApiResultHandler.success(teacherService.findById(teacherId));
+        return ApiResultHandler.success(teacherService.queryById(teacherId));
     }
     @GetMapping("/tea/{teaName}")
     public ApiResult findByName(@PathVariable("teaName") String teaName) {
@@ -67,6 +67,6 @@ public class TeacherController {
 
     @PostMapping("/teacher")
     public ApiResult add(@RequestBody Teacher teacher){
-        return ApiResultHandler.success(teacherService.add(teacher));
+        return ApiResultHandler.success(teacherService.insert(teacher));
     }
 }

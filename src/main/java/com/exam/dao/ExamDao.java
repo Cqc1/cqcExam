@@ -31,6 +31,8 @@ public interface ExamDao {
      */
     Exam queryById(Integer examid);
 
+    List<Exam> querByMajorId(Integer majorid);
+
     /**
      * 查询指定行数据
      *

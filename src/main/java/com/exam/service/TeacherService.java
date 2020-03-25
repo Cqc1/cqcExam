@@ -14,16 +14,53 @@ import java.util.List;
  */
 public interface TeacherService {
 
-    IPage<Teacher> findAll(Page<Teacher> page);
+    List<Teacher> findByName(String teaname);
 
-    public Teacher findById(Integer teacherId);
+    IPage<Teacher> findAll(Page page);
 
-    List<Teacher> findByName(String teacherName);
+    List<Teacher> selectAll();
 
-    public int deleteById(Integer teacherId);
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param teacherid 主键
+     * @return 实例对象
+     */
+    Teacher queryById(Integer teacherid);
 
-    public int update(Teacher teacher);
+    List<Teacher> queryByInstituId(Integer institutionid);
 
-    public int add(Teacher teacher);
+    /**
+     * 查询多条数据
+     *
+     * @param offset 查询起始位置
+     * @param limit 查询条数
+     * @return 对象列表
+     */
+    List<Teacher> queryAllByLimit(int offset, int limit);
+
+    /**
+     * 新增数据
+     *
+     * @param teacher 实例对象
+     * @return 实例对象
+     */
+    int insert(Teacher teacher);
+
+    /**
+     * 修改数据
+     *
+     * @param teacher 实例对象
+     * @return 实例对象
+     */
+    int update(Teacher teacher);
+
+    /**
+     * 通过主键删除数据
+     *
+     * @param teacherid 主键
+     * @return 是否成功
+     */
+    int deleteById(Integer teacherid);
 
 }

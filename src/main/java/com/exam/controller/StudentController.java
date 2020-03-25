@@ -32,7 +32,7 @@ public class StudentController {
 
     @GetMapping("/student/{studentId}")
     public ApiResult findById(@PathVariable("studentId") Integer studentId) {
-        Student res = studentService.findById(studentId);
+        Student res = studentService.queryById(studentId);
         if (res != null) {
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
         } else {
@@ -80,7 +80,7 @@ public class StudentController {
 
     @PostMapping("/student")
     public ApiResult add(@RequestBody Student student) {
-        int res = studentService.add(student);
+        int res = studentService.insert(student);
         if (res == 1) {
             return ApiResultHandler.buildApiResult(200,"添加成功",null);
         }else {

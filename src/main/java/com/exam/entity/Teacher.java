@@ -35,9 +35,9 @@ public class Teacher implements Serializable {
     */
     private String sex;
     /**
-    * 院系名称
+    * 院系编号
     */
-    private String yuanname;
+    private Integer institutionid;
     
     private String email;
     /**
@@ -48,5 +48,7 @@ public class Teacher implements Serializable {
     * 角色(0:管理员、1：教师、2：学生）
     */
     private String role;
+
+    private Institution institution;//院系实体
 
 }

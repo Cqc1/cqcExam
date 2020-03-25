@@ -42,13 +42,13 @@ public class Exam implements Serializable {
     */
     private String term;
     /**
-    * 专业
+    * 专业编号
     */
-    private String major;
+    private Integer majorid;
     /**
-    * 学院
+    * 学院编号
     */
-    private String institution;
+    private Integer institutionid;
     /**
     * 考试时长
     */
@@ -73,5 +73,9 @@ public class Exam implements Serializable {
     private Paper paper;
 
     private Course course;
+
+    private Major major;
+
+    private Institution institution;
 
 }

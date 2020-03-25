@@ -22,28 +22,43 @@ public class StudentServiceImpl implements StudentService {
     private StudentDao studentDao;
 
     @Override
-    public IPage<Student> findAll(Page<Student> page) {
-        return studentDao.findAll(page);
-    }
-
-    @Override
-    public Student findById(Integer studentId) {
-        return studentDao.findById(studentId);
-    }
-
-    @Override
     public List<Student> findByName(String studentName) {
         return studentDao.findByName(studentName);
     }
 
     @Override
-    public int deleteById(Integer studentId) {
-        return studentDao.deletebyId(studentId);
+    public IPage<Student> findAll(Page page) {
+        return studentDao.findAll(page);
+    }
+
+    @Override
+    public List<Student> selectAll() {
+        return studentDao.findAll();
+    }
+
+    @Override
+    public Student queryById(Integer studentid) {
+        return studentDao.queryById(studentid);
+    }
+
+    @Override
+    public List<Student> queryByClazzId(Integer clazzid) {
+        return studentDao.queryByClazzId(clazzid);
+    }
+
+    @Override
+    public List<Student> queryAllByLimit(int offset, int limit) {
+        return studentDao.queryAllByLimit(offset, limit);
+    }
+
+    @Override
+    public int insert(Student student) {
+        return studentDao.insert(student);
     }
 
     @Override
     public int update(Student student) {
-        return studentDao.updateStu(student);
+        return studentDao.update(student);
     }
 
     @Override
@@ -52,7 +67,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int add(Student student) {
-        return studentDao.add(student);
+    public int deleteById(Integer studentid) {
+        return studentDao.deleteById(studentid);
     }
+
 }

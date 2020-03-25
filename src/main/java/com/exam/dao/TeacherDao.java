@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.Teacher;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -17,45 +19,75 @@ import java.util.List;
 @Mapper
 public interface TeacherDao extends BaseMapper<Teacher> {
 
+    @Select("teaId, teaName, teaPwd, sex, cqc_exam.teacher.institutionId, email, "+
+            " tel, role,institution.instituName as instituname "+
+            "cqc_exam.teacher,institution "+
+            "where cqc_exam.teacher.institutionId=institution.institutionId and teaName = #{teaname}")
+    List<Teacher> findByName(String teaname);
+
     /**
      * 分页查询所有教师
      * @param page
-     * @return List<Teacher>
+     * @return List<Paper>
      */
-    @Select("select * from teacher")
     IPage<Teacher> findAll(Page page);
 
-    @Select("select * from teacher where teaId = #{teaid}")
-    Teacher findById(Integer teacherId);
-
-    @Select("select * from teacher where teaName = #{teaname}")
-    List<Teacher> findByName(String teacherName);
-
-    @Delete("delete from teacher where teaId = #{teaid}")
-    int deletebyId(Integer teacherId);
+    /**
+     * 不分页查询所有教师
+     * @return List<Paper>
+     */
+    List<Teacher> findAll();
 
     /**
-     *更新所有教师信息
-     * @param teacher 传递一个对象
-     * @return 受影响的记录条数
+     * 通过ID查询单条数据
+     *
+     * @param teacherid 主键
+     * @return 实例对象
      */
-    @Update("update teacher set teaName = #{teaname},sex = #{sex}," +
-            "tel = #{tel}, email = #{email},teaPwd = #{teapwd}," +
-            "role = #{role},yuanName = #{yuanname},role = #{role} where teaId = #{teaid}")
-    int updateTea(Teacher teacher);
+    Teacher queryById(Integer teacherid);
+
+    List<Teacher> queryByinstituteId(Integer institutionid);
 
     /**
-     * 更新密码
-     * @param teacher
-     * @return 受影响的记录条数
+     * 查询指定行数据
+     *
+     * @param offset 查询起始位置
+     * @param limit 查询条数
+     * @return 对象列表
      */
-    @Update("update teacher set teaPwd = #{teapwd} where teaId = #{teaid}")
-    int updatePwd(Teacher teacher);
+    List<Teacher> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
-    @Options(useGeneratedKeys = true,keyProperty = "teaid")
-    @Insert("insert into teacher(teaName,sex,tel,email,teaPwd,role,yuanName) " +
-            "values(#{teaname},#{sex},#{tel},#{email},#{teapwd},#{role},#{yuanname})")
-    int add(Teacher teacher);
+    /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param teacher 实例对象
+     * @return 对象列表
+     */
+    List<Teacher> queryAll(Teacher teacher);
+
+    /**
+     * 新增数据
+     *
+     * @param teacher 实例对象
+     * @return 影响行数
+     */
+    int insert(Teacher teacher);
+
+    /**
+     * 修改数据
+     *
+     * @param teacher 实例对象
+     * @return 影响行数
+     */
+    int update(Teacher teacher);
+
+    /**
+     * 通过主键删除数据
+     *
+     * @param teacherid 主键
+     * @return 影响行数
+     */
+    int deleteById(Integer teacherid);
 
 }

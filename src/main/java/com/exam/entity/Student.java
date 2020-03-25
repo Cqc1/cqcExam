@@ -35,9 +35,10 @@ public class Student implements Serializable {
     */
     private String sex;
     /**
-    * 班级名称
+    * 班级编号
     */
-    private String classname;
+    private Integer clazzid;
+
     /**
     * 邮箱
     */
@@ -50,5 +51,9 @@ public class Student implements Serializable {
     * 角色（0：管理员、1：教师、2：学生）
     */
     private String role;
+
+    private Clazz clazz;//班级实体
+
+
 
 }

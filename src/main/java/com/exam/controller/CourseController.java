@@ -32,12 +32,12 @@ public class CourseController {
     @GetMapping("/courseInfo")
     public ApiResult findAllInfo() {
         ApiResult apiResult;
-        apiResult = ApiResultHandler.buildApiResult(200, "请求成功！", courseService.findALLInfo());
+        apiResult = ApiResultHandler.buildApiResult(200, "请求成功！", courseService.selectAll());
         return apiResult;
     }
     @GetMapping("/course/{courseId}")
     public ApiResult findById(@PathVariable("courseId") Integer courseId) {
-        Course res = courseService.findById(courseId);
+        Course res = courseService.queryById(courseId);
         if (res != null) {
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
         } else {
@@ -79,7 +79,7 @@ public class CourseController {
 
     @PostMapping("/course")
     public ApiResult add(@RequestBody Course course) {
-        int res = courseService.add(course);
+        int res = courseService.update(course);
         if (res == 1) {
             return ApiResultHandler.buildApiResult(200,"添加成功",null);
         }else {

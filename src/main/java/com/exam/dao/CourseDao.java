@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.Course;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -17,40 +19,75 @@ import java.util.List;
 @Mapper
 public interface CourseDao extends BaseMapper<Course> {
 
+    @Select("select courseId, couName, couPeriod, credit, "+
+            "cqc_exam.course.institutionId,institution.instituName as instituname "+
+            "from course,institution "+
+            "where course.institutionId=institution.institutionId and couName = #{couname}")
+    List<Course> findByName(String couname);
+
     /**
      * 分页查询所有课程
      * @param page
-     * @return List<Course>
+     * @return List<Paper>
      */
-    @Select("select * from course")
     IPage<Course> findAll(Page page);
 
-    //不分页查询
-    @Select("select * from course")
-    List<Course> findAllInfo();
-
-    @Select("select * from course where courseId = #{courseid}")
-    Course findById(Integer courseid);
-
-    @Select("select * from course where couName = #{couname}")
-    List<Course> findByName(String couname);
-
-    @Delete("delete from course where courseId = #{courseid}")
-    int deletebyId(Integer courseid);
+    /**
+     * 不分页查询所有课程
+     * @return List<Paper>
+     */
+    List<Course> findAll();
 
     /**
-     *更新所有课程信息
-     * @param course 传递一个对象
-     * @return 受影响的记录条数
+     * 通过ID查询单条数据
+     *
+     * @param courseid 主键
+     * @return 实例对象
      */
-    @Update("update course set couName = #{couname},couPeriod = #{couperiod}," +
-            "credit = #{credit} " +
-            "where courseId = #{courseid}")
-    int updateCou(Course course);
+    Course queryById(Integer courseid);
 
-    @Options(useGeneratedKeys = true,keyProperty = "courseid")
-    @Insert("insert into course(couName,couPeriod,credit) values " +
-            "(#{couname},#{couperiod},#{credit})")
-    int add(Course course);
+    List<Course> queryByinstituteId(Integer institutionid);
+
+    /**
+     * 查询指定行数据
+     *
+     * @param offset 查询起始位置
+     * @param limit 查询条数
+     * @return 对象列表
+     */
+    List<Course> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+
+
+    /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param course 实例对象
+     * @return 对象列表
+     */
+    List<Course> queryAll(Course course);
+
+    /**
+     * 新增数据
+     *
+     * @param course 实例对象
+     * @return 影响行数
+     */
+    int insert(Course course);
+
+    /**
+     * 修改数据
+     *
+     * @param course 实例对象
+     * @return 影响行数
+     */
+    int update(Course course);
+
+    /**
+     * 通过主键删除数据
+     *
+     * @param courseid 主键
+     * @return 影响行数
+     */
+    int deleteById(Integer courseid);
 
 }

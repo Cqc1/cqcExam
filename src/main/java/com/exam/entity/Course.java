@@ -34,5 +34,9 @@ public class Course implements Serializable {
     */
     private Integer credit;
 
+    private Integer institutionid;  //院系编号
+
+    private Institution institution;//院系实体
+
 
 }

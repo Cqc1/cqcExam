@@ -37,6 +37,11 @@ public class ExamServiceImpl implements ExamService {
         return this.examDao.queryById(examid);
     }
 
+    @Override
+    public List<Exam> querByMajorId(Integer majorid) {
+        return examDao.querByMajorId(majorid);
+    }
+
     /**
      * 查询多条数据
      *

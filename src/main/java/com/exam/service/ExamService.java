@@ -24,6 +24,8 @@ public interface ExamService {
      */
     Exam queryById(Integer examid);
 
+    List<Exam> querByMajorId(Integer majorid);
+
     /**
      * 查询多条数据
      *

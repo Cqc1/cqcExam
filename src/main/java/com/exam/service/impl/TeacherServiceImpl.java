@@ -22,32 +22,48 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherDao teacherDao;
 
     @Override
-    public IPage<Teacher> findAll(Page<Teacher> page) {
-        return teacherDao.findAll(page);
-    }
-
-    @Override
-    public Teacher findById(Integer teacherId) {
-        return teacherDao.findById(teacherId);
-    }
-
-    @Override
     public List<Teacher> findByName(String teacherName) {
         return teacherDao.findByName(teacherName);
     }
 
     @Override
-    public int deleteById(Integer teacherId) {
-        return teacherDao.deleteById(teacherId);
+    public IPage<Teacher> findAll(Page page) {
+        return teacherDao.findAll(page);
+    }
+
+    @Override
+    public List<Teacher> selectAll() {
+        return teacherDao.findAll();
+    }
+
+    @Override
+    public Teacher queryById(Integer teacherid) {
+        return teacherDao.queryById(teacherid);
+    }
+
+    @Override
+    public List<Teacher> queryByInstituId(Integer institutionid) {
+        return teacherDao.queryByinstituteId(institutionid);
+    }
+
+    @Override
+    public List<Teacher> queryAllByLimit(int offset, int limit) {
+        return teacherDao.queryAllByLimit(offset,limit);
+    }
+
+    @Override
+    public int insert(Teacher teacher) {
+        return teacherDao.insert(teacher);
     }
 
     @Override
     public int update(Teacher teacher) {
-        return teacherDao.updateTea(teacher);
+        return teacherDao.update(teacher);
     }
 
     @Override
-    public int add(Teacher teacher) {
-        return teacherDao.add(teacher);
+    public int deleteById(Integer teacherid) {
+        return teacherDao.deleteById(teacherid);
     }
+
 }
