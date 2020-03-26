@@ -46,7 +46,7 @@ public class Student implements Serializable {
     /**
     * 电话
     */
-    private Integer tel;
+    private String tel;
     /**
     * 角色（0：管理员、1：教师、2：学生）
     */

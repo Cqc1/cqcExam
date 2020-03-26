@@ -21,15 +21,15 @@
    </select>
     <select id="findByQues" resultMap="QuesResultMap">
       select quesId as quesid,question, course.couName as couname, score, chapter,level, "单项选择题" as type,sing_ques.quesType as questype from sing_ques,course where sing_ques.courseId=course.courseId
-      and quesType=#{questype} and question=#{question}
+      and quesType=#{questype} and question like '%${question}%'
       union select quesId as quesid, question,course.couName as couname, score, chapter,level, "多项选择题" as type ,mult_ques.quesType as questype from mult_ques,course where mult_ques.courseId=course.courseId
-      and quesType=#{questype} and question=#{question}
+      and quesType=#{questype} and question like '%${question}%'
       union select quesId as quesid, question,course.couName as couname, score, chapter,level, "填空题" as type ,fill_ques.quesType as questype from fill_ques,course where fill_ques.courseId=course.courseId
-      and quesType=#{questype} and question=#{question}
+      and quesType=#{questype} and question like '%${question}%'
       union select quesId as quesid, question,course.couName as couname, score, chapter,level, "判断题" as type ,judge_ques.quesType as questype from judge_ques,course where judge_ques.courseId=course.courseId
-      and quesType=#{questype} and question=#{question}
+      and quesType=#{questype} and question like '%${question}%'
       union select quesId as quesid, question,course.couName as couname, score, chapter,level, "简答题等非客观题" as type ,short_ques.quesType as questype  from short_ques,course where short_ques.courseId=course.courseId
-      and quesType=#{questype} and question=#{question}
+      and quesType=#{questype} and question like '%${question}%'
    </select>
     <select id="findByType" resultMap="QuesResultMap">
       select quesId as quesid,question, course.couName as couname, score, chapter,level, "单项选择题" as type,sing_ques.quesType as questype from sing_ques,course where sing_ques.courseId=course.courseId

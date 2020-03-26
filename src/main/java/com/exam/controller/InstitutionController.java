@@ -85,6 +85,12 @@ public class InstitutionController {
             return ApiResultHandler.buildApiResult(400,"添加失败",null);
         }
     }
-
+    //不分页查询级联查询
+    @GetMapping("/selectAllMajor")
+    public ApiResult selectAllMajor() {
+        ApiResult apiResult;
+        apiResult = ApiResultHandler.buildApiResult(200, "请求成功！", institutionService.findAllMajorList());
+        return apiResult;
+    }
 
 }

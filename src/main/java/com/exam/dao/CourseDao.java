@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.Course;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -19,10 +18,10 @@ import java.util.List;
 @Mapper
 public interface CourseDao extends BaseMapper<Course> {
 
-    @Select("select courseId, couName, couPeriod, credit, "+
+    /*@Select("select courseId, couName, couPeriod, credit, "+
             "cqc_exam.course.institutionId,institution.instituName as instituname "+
             "from course,institution "+
-            "where course.institutionId=institution.institutionId and couName = #{couname}")
+            "where course.institutionId=institution.institutionId and couName = #{couname}")*/
     List<Course> findByName(String couname);
 
     /**

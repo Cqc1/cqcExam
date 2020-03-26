@@ -39,11 +39,20 @@ public class StudentController {
             return ApiResultHandler.buildApiResult(404,"查询的用户不存在",null);
         }
     }
+    @GetMapping("/student/selectByClazzId/{clazzId}")
+    public ApiResult findByClazzId(@PathVariable("clazzId") Integer clazzId) {
+        List<Student> res = studentService.queryByClazzId(clazzId);
+        if (!res.isEmpty()) {
+            return ApiResultHandler.buildApiResult(200,"请求成功",res);
+        } else {
+            return ApiResultHandler.buildApiResult(404,"查询的用户不存在",null);
+        }
+    }
     //按用户名查找
     @GetMapping("/stu/{stuName}")
     public ApiResult findByName(@PathVariable("stuName") String stuName) {
         List<Student> res = (List<Student>) studentService.findByName(stuName);
-        if (res != null) {
+        if (!res.isEmpty()) {
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
         } else {
             return ApiResultHandler.buildApiResult(404,"查询的用户不存在",null);

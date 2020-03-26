@@ -33,13 +33,18 @@ public class TeacherController {
         return ApiResultHandler.buildApiResult(200,"查询所有教师",teacherIPage);
     }
 
-    @GetMapping("/teacher/{teacherId}")
-    public ApiResult findById(@PathVariable("teacherId") Integer teacherId){
-        return ApiResultHandler.success(teacherService.queryById(teacherId));
+    @GetMapping("/teacher/{id}")
+    public ApiResult findById(@PathVariable("id") Integer id){
+        Teacher res=teacherService.queryById(id);
+        if (res != null) {
+            return ApiResultHandler.buildApiResult(200,"请求成功",res);
+        } else {
+            return ApiResultHandler.buildApiResult(404,"查询的教师不存在",null);
+        }
     }
-    @GetMapping("/tea/{teaName}")
-    public ApiResult findByName(@PathVariable("teaName") String teaName) {
-        List<Teacher> res = (List<Teacher>) teacherService.findByName(teaName);
+    @GetMapping("/tea/{teaname}")
+    public ApiResult findByName(@PathVariable("teaname") String teaname) {
+        List<Teacher> res = (List<Teacher>) teacherService.findByName(teaname);
         if (res != null) {
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
         } else {

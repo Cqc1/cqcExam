@@ -31,7 +31,7 @@
     <select id="findByUser" resultMap="PaperResultMap">
       select paper.paperId,paper.courseId,course.couName,paper.description,paper.totalScore,paper.user
       from paper,course
-      where paper.courseId=course.courseId and paper.user=#{user}
+      where paper.courseId=course.courseId and paper.user like '%${_parameter}%'
       group by paper.paperId,paper.courseId,paper.description,paper.totalScore,paper.user
    </select>
     <select id="findBypaperidDet" resultMap="PaperResultMap">

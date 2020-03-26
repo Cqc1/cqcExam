@@ -6,6 +6,25 @@
         <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
         <result property="instituname" column="instituName" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <resultMap type="com.exam.entity.Institution" id="InstitutionResultMap">
+        <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
+        <result property="instituname" column="instituName" jdbcType="VARCHAR"/>
+        <collection property="majors" ofType="com.exam.entity.Major" >
+            <result property="majorid" column="majorId" jdbcType="INTEGER"/>
+            <result property="major" column="major" jdbcType="VARCHAR"/>
+            <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
+        </collection>
+    </resultMap>
+
+    <!--查询所有-->
+    <select id="findAllMajorList" resultMap="InstitutionResultMap">
+        select i.*,m.*
+         /* cqc_exam.institution.institutionId, instituName,major.majorId as majorid,major.major as major*/
+        from cqc_exam.institution i left join major m on i.institutionId=m.institutionId
+       /* where cqc_exam.institutionId=major.institutionId*/
+    </select>
+
     <!--查询所有-->
     <select id="findAll" resultMap="InstitutionMap">
         select

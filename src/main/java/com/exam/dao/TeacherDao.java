@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.Teacher;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -19,10 +18,10 @@ import java.util.List;
 @Mapper
 public interface TeacherDao extends BaseMapper<Teacher> {
 
-    @Select("teaId, teaName, teaPwd, sex, cqc_exam.teacher.institutionId, email, "+
+    /*@Select("teaId, teaName, teaPwd, sex, cqc_exam.teacher.institutionId, email, "+
             " tel, role,institution.instituName as instituname "+
-            "cqc_exam.teacher,institution "+
-            "where cqc_exam.teacher.institutionId=institution.institutionId and teaName = #{teaname}")
+            "from cqc_exam.teacher,institution "+
+            "where cqc_exam.teacher.institutionId=institution.institutionId and teaName like '%${_parameter}%'")*/
     List<Teacher> findByName(String teaname);
 
     /**

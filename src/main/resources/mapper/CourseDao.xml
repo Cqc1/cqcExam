@@ -55,6 +55,13 @@
         and cqc_exam.course.institutionId = #{institutionid}
     </select>
 
+    <select id="findByName" resultMap="CourseResultMap">
+        select courseId, couName, couPeriod, credit,
+            cqc_exam.course.institutionId,institution.instituName as instituname
+            from course,institution
+            where course.institutionId=institution.institutionId and couName like '%${_parameter}%'
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CourseResultMap">
         select

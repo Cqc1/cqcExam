@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (Institution)实体类
@@ -25,6 +26,8 @@ public class Institution implements Serializable {
     * 院系名称
     */
     private String instituname;
+
+    private List<Major> majors;
 
 
 }

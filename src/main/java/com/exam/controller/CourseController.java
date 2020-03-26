@@ -44,11 +44,21 @@ public class CourseController {
             return ApiResultHandler.buildApiResult(404,"查询的课程不存在",null);
         }
     }
+    //按院系id查找
+    @GetMapping("/courses/selectByinstituteId/{instituteId}")
+    public ApiResult findByInstituteId(@PathVariable("instituteId") Integer instituteId) {
+        List<Course> res = courseService.queryByInstituId(instituteId);
+        if (res != null) {
+            return ApiResultHandler.buildApiResult(200,"请求成功",res);
+        } else {
+            return ApiResultHandler.buildApiResult(404,"查询的课程不存在",null);
+        }
+    }
     //按课程名查找
     @GetMapping("/cou/{couName}")
     public ApiResult findByName(@PathVariable("couName") String couName) {
         List<Course> res = (List<Course>) courseService.findByName(couName);
-        if (res != null) {
+        if (!res.isEmpty()) {
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
         } else {
             return ApiResultHandler.buildApiResult(404,"查询的课程不存在",null);
@@ -77,9 +87,9 @@ public class CourseController {
         return ApiResultHandler.buildApiResult(400,"更新失败",res);
     }
 
-    @PostMapping("/course")
+    @PostMapping("/course/add")
     public ApiResult add(@RequestBody Course course) {
-        int res = courseService.update(course);
+        int res = courseService.insert(course);
         if (res == 1) {
             return ApiResultHandler.buildApiResult(200,"添加成功",null);
         }else {

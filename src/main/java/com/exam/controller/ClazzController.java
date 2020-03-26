@@ -58,7 +58,7 @@ public class ClazzController {
     @GetMapping("/selectByMajor/{majorid}")
     public ApiResult findByMajorId(@PathVariable("majorid") Integer majorid) {
         List<Clazz> res = clazzService.queryByMajorId(majorid);
-        if (res != null) {
+        if (!res.isEmpty()) {
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
         } else {
             return ApiResultHandler.buildApiResult(404,"查询的班级不存在",null);

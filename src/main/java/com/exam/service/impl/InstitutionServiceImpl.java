@@ -88,4 +88,9 @@ public class InstitutionServiceImpl implements InstitutionService {
     public boolean deleteById(Integer institutionid) {
         return this.institutionDao.deleteById(institutionid) > 0;
     }
+
+    @Override
+    public List<Institution> findAllMajorList() {
+        return institutionDao.findAllMajorList();
+    }
 }

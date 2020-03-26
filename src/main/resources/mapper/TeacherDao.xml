@@ -9,7 +9,7 @@
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
         <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
-        <result property="tel" column="tel" jdbcType="INTEGER"/>
+        <result property="tel" column="tel" jdbcType="CHAR"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -20,7 +20,7 @@
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
         <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
-        <result property="tel" column="tel" jdbcType="INTEGER"/>
+        <result property="tel" column="tel" jdbcType="CHAR"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
         <association property="institution" javaType="com.exam.entity.Institution">
             <id property="institutionid" column="institutionid"/>
@@ -41,6 +41,13 @@
           teaId, teaName, teaPwd, sex, cqc_exam.teacher.institutionId, email, tel, role,institution.instituName as instituname
         from cqc_exam.teacher,institution
         where teaId = #{teaid} and cqc_exam.teacher.institutionId=institution.institutionId
+    </select>
+
+    <select id="findByName" resultMap="TeacherResultMap">
+           select teaId, teaName, teaPwd, sex, cqc_exam.teacher.institutionId, email,
+            tel, role,institution.instituName as instituname
+            from cqc_exam.teacher,institution
+            where cqc_exam.teacher.institutionId=institution.institutionId and teaName like '%${_parameter}%'
     </select>
     <!--通过院系id查询单个-->
     <select id="queryByinstituteId" resultMap="TeacherResultMap">

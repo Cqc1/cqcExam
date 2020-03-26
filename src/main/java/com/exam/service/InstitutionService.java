@@ -59,4 +59,8 @@ public interface InstitutionService {
      */
     boolean deleteById(Integer institutionid);
 
+    //多对多级联查询
+
+    List<Institution> findAllMajorList();
+
 }

@@ -9,7 +9,7 @@
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
         <result property="clazzid" column="clazzId" jdbcType="INTEGER"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
-        <result property="tel" column="tel" jdbcType="INTEGER"/>
+        <result property="tel" column="tel" jdbcType="CHAR"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -20,7 +20,7 @@
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
         <result property="clazzid" column="clazzid" jdbcType="INTEGER"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
-        <result property="tel" column="tel" jdbcType="INTEGER"/>
+        <result property="tel" column="tel" jdbcType="CHAR"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
         <association property="clazz" javaType="com.exam.entity.Clazz">
             <id property="clazzid" column="clazzId" jdbcType="INTEGER"/>
@@ -44,6 +44,15 @@
         from cqc_exam.student,clazz
         where clazzId = #{clazzid} and cqc_exam.student.clazzid=clazz.clazzId
     </select>
+
+    <!--查询单个-->
+    <select id="findByName" resultMap="StudentResultMap">
+           select stuId, stuName, stuPwd, sex, cqc_exam.student.clazzId, email,
+                  tel, role,clazz.calName as calname
+           from cqc_exam.student,clazz
+           where cqc_exam.student.clazzid=clazz.clazzId and stuName like '%${_parameter}%'
+    </select>
+
 
     <!--分页查询所有信息-->
     <select id="findAll" resultMap="StudentResultMap">
@@ -101,7 +110,7 @@
     </insert>
 
     <!--通过主键修改数据-->
-    <update id="update">
+    <update id="updatePwd">
         update cqc_exam.student
         <set>
             <if test="stupwd != null and stupwd != ''">
@@ -112,7 +121,7 @@
     </update>
 
     <!--通过主键修改数据-->
-    <update id="updatePwd">
+    <update id="update">
         update cqc_exam.student
         <set>
             <if test="stuname != null and stuname != ''">
