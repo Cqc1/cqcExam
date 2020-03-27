@@ -6,18 +6,69 @@
         <result property="scoreid" column="scoreId" jdbcType="INTEGER"/>
         <result property="examid" column="examId" jdbcType="INTEGER"/>
         <result property="stuid" column="stuId" jdbcType="INTEGER"/>
-        <result property="course" column="course" jdbcType="VARCHAR"/>
         <result property="objscore" column="objScore" jdbcType="INTEGER"/>
         <result property="subscore" column="subScore" jdbcType="INTEGER"/>
         <result property="totalscore" column="totalScore" jdbcType="INTEGER"/>
+        <result property="course" column="course" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <!--查询单个-->
-    <select id="queryById" resultMap="ScoreMap">
+
+    <resultMap type="com.exam.entity.Score" id="ScoreResultMap">
+        <result property="scoreid" column="scoreId" jdbcType="INTEGER"/>
+        <result property="examid" column="examId" jdbcType="INTEGER"/>
+        <result property="stuid" column="stuId" jdbcType="INTEGER"/>
+        <result property="objscore" column="objScore" jdbcType="INTEGER"/>
+        <result property="subscore" column="subScore" jdbcType="INTEGER"/>
+        <result property="totalscore" column="totalScore" jdbcType="INTEGER"/>
+        <result property="course" column="course" jdbcType="VARCHAR"/>
+        <result property="claname" column="claname" jdbcType="VARCHAR"/>
+        <result property="major" column="major" jdbcType="VARCHAR"/>
+        <result property="instituname" column="instituname" jdbcType="VARCHAR"/>
+        <result property="grade" column="grade" jdbcType="VARCHAR"/>
+        <result property="term" column="term" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <association property="student" javaType="com.exam.entity.Student">
+            <result property="stuid" column="stuId" jdbcType="INTEGER"/>
+            <result property="stuname" column="stuName" jdbcType="VARCHAR"/>
+            <result property="stupwd" column="stuPwd" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="VARCHAR"/>
+            <result property="clazzid" column="clazzId" jdbcType="INTEGER"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="tel" column="tel" jdbcType="CHAR"/>
+            <result property="role" column="role" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <!--查询所有-->
+    <select id="findAll" resultMap="ScoreResultMap">
         select
-          scoreId, examId, stuId, course, objScore, subScore, totalScore
-        from cqc_exam.score
-        where scoreId = #{scoreid}
+           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,e.grade as grade,e.term as term,e.description as description,
+           stu.sex,stu.tel,stu.stuname,cl.calName as claname,ma.major as major,co.couName as course,i.instituName as instituname
+        from score sc,exam e ,student stu,institution i,course co,major ma,clazz cl
+         where e.examId=sc.examId and sc.stuId=stu.stuId and stu.clazzId=cl.clazzId and cl.majorId=ma.majorId
+         and ma.institutionId=i.institutionId and e.courseid=co.courseId
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ScoreResultMap">
+      select
+           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,e.grade as grade,e.term as term,e.description as description,
+           stu.sex,stu.tel,stu.stuname,cl.calName as claname,ma.major as major,co.couName as course,i.instituName as instituname
+        from score sc,exam e ,student stu,institution i,course co,major ma,clazz cl
+         where e.examId=sc.examId and sc.stuId=stu.stuId and stu.clazzId=cl.clazzId and cl.majorId=ma.majorId
+         and ma.institutionId=i.institutionId and e.courseid=co.courseId
+        and sc.scoreId = #{scoreid}
+    </select>
+
+    <!--查询单个-->
+    <select id="queryByStuId" resultMap="ScoreResultMap">
+       select
+           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,e.grade as grade,e.term as term,e.description as description,
+           stu.sex,stu.tel,stu.stuname,cl.calName as claname,ma.major as major,co.couName as course,i.instituName as instituname
+        from score sc,exam e ,student stu,institution i,course co,major ma,clazz cl
+         where e.examId=sc.examId  and sc.stuId=stu.stuId and stu.clazzId=cl.clazzId and cl.majorId=ma.majorId
+         and ma.institutionId=i.institutionId and e.courseid=co.courseId
+        and sc.stuId = #{stuid}
     </select>
 
     <!--查询指定行数据-->

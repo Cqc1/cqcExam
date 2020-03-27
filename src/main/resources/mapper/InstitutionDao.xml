@@ -17,8 +17,17 @@
         </collection>
     </resultMap>
 
+    <resultMap type="com.exam.entity.Institution" id="InstitutionResultMap2">
+        <result property="institutionid" column="institutionId" jdbcType="INTEGER"/>
+        <result property="instituname" column="instituName" jdbcType="VARCHAR"/>
+        <collection property="majorsList" ofType="com.exam.vo.Majors" >
+            <result property="majorid" column="majorId" jdbcType="INTEGER"/>
+            <result property="major" column="major" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
     <!--查询所有-->
-    <select id="findAllMajorList" resultMap="InstitutionResultMap">
+    <select id="findAllMajorList" resultMap="InstitutionResultMap2">
         select i.*,m.*
          /* cqc_exam.institution.institutionId, instituName,major.majorId as majorid,major.major as major*/
         from cqc_exam.institution i left join major m on i.institutionId=m.institutionId

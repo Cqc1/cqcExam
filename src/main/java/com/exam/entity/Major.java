@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * (Major)实体类
+ * (Majors)实体类
  *
  * @author chenqiancheng
  * @since 2020-03-24 19:55:10

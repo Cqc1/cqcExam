@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * (Major)表服务实现类
+ * (Majors)表服务实现类
  *
  * @author chenqiancheng
  * @since 2020-03-24 19:55:10

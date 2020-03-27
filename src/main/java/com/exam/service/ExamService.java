@@ -59,4 +59,6 @@ public interface ExamService {
      */
     boolean deleteById(Integer examid);
 
+    Exam findOnlyExamId();
+
 }

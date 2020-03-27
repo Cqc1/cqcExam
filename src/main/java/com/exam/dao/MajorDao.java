@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * (Major)表数据库访问层
+ * (Majors)表数据库访问层
  *
  * @author chenqiancheng
  * @since 2020-03-24 19:55:10

@@ -7,7 +7,7 @@ import com.exam.entity.Major;
 import java.util.List;
 
 /**
- * (Major)表服务接口
+ * (Majors)表服务接口
  *
  * @author chenqiancheng
  * @since 2020-03-24 19:55:10

@@ -1,5 +1,6 @@
 package com.exam.entity;
 
+import com.exam.vo.Majors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,8 @@ public class Institution implements Serializable {
     private String instituname;
 
     private List<Major> majors;
+
+    private List<Majors> majorsList;//获取纯粹的专业
 
 
 }

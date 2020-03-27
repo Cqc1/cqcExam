@@ -83,4 +83,12 @@ public class ExamController {
             return ApiResultHandler.buildApiResult(400,"添加失败",null);
         }
     }
+    @GetMapping("/OnlyExamId")
+    public ApiResult findOnlyExamId() {
+        Exam res = examService.findOnlyExamId();
+        if (res != null) {
+            return ApiResultHandler.buildApiResult(200,"请求成功",res);
+        }
+        return ApiResultHandler.buildApiResult(400,"请求失败",res);
+    }
 }

@@ -30,9 +30,9 @@ public class Exam implements Serializable {
     */
     private Integer courseid;
     /**
-    * 考生学号
+    * 备考专业号
     */
-    private String stuid;
+    private String majors;
     /**
     * 年级
     */

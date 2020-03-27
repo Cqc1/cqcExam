@@ -45,6 +45,22 @@ public class Score implements Serializable {
     /**
     * 总成绩
     */
+
     private Integer totalscore;
+
+    private String claname;   //班级名称
+
+    private String major;//专业名称
+
+    private String instituname;//院系名称
+
+    private String grade;   //年级
+
+    private String term ;//学期
+
+    private String description;//试卷描述
+
+    private Student student;//学生实体
+
 
 }

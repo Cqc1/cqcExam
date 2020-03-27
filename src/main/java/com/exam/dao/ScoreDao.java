@@ -1,6 +1,8 @@
 package com.exam.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.Score;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,6 +18,19 @@ import java.util.List;
 @Mapper
 public interface ScoreDao extends BaseMapper<Score> {
 
+
+
+    /**
+     * 分页查询所有分数
+     * @param page
+     * @return List<Score>
+     */
+    IPage<Score> findAll(Page page);
+
+    /**
+     * 不分页查询所有分数
+     */
+    List<Score> findAll();
     /**
      * 通过ID查询单条数据
      *
@@ -23,6 +38,14 @@ public interface ScoreDao extends BaseMapper<Score> {
      * @return 实例对象
      */
     Score queryById(Integer scoreid);
+
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param stuid 主键
+     * @return 实例对象
+     */
+    Score queryByStuId(Integer stuid);
 
     /**
      * 查询指定行数据

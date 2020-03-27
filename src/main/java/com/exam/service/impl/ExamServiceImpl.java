@@ -88,4 +88,9 @@ public class ExamServiceImpl implements ExamService {
     public boolean deleteById(Integer examid) {
         return this.examDao.deleteById(examid) > 0;
     }
+
+    @Override
+    public Exam findOnlyExamId() {
+        return examDao.findOnlyExamId();
+    }
 }

@@ -1,6 +1,9 @@
 package com.exam.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.Score;
+
 import java.util.List;
 
 /**
@@ -11,6 +14,19 @@ import java.util.List;
  */
 public interface ScoreService {
 
+
+
+    /**
+     * 分页查询所有分数
+     * @param page
+     * @return List<Score>
+     */
+    IPage<Score> findAll(Page page);
+
+    /**
+     * 不分页查询所有分数
+     */
+    List<Score> findAll();
     /**
      * 通过ID查询单条数据
      *
@@ -18,6 +34,14 @@ public interface ScoreService {
      * @return 实例对象
      */
     Score queryById(Integer scoreid);
+
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param stuid 主键
+     * @return 实例对象
+     */
+    Score queryByStuId(Integer stuid);
 
     /**
      * 查询多条数据

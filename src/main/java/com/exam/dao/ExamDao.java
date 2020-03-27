@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.Exam;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -74,5 +75,12 @@ public interface ExamDao {
      * @return 影响行数
      */
     int deleteById(Integer examid);
+
+    /**
+     * 查询最后一条记录的examId,返回给前端达到自增效果
+     * @return examId
+     */
+    @Select("select examId from exam order by examId desc limit 1")
+    Exam findOnlyExamId();
 
 }

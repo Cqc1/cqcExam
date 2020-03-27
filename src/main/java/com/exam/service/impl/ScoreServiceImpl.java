@@ -1,5 +1,7 @@
 package com.exam.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.exam.entity.Score;
 import com.exam.dao.ScoreDao;
 import com.exam.service.ScoreService;
@@ -19,6 +21,16 @@ public class ScoreServiceImpl implements ScoreService {
     @Resource
     private ScoreDao scoreDao;
 
+    @Override
+    public IPage<Score> findAll(Page page) {
+        return scoreDao.findAll(page);
+    }
+
+    @Override
+    public List<Score> findAll() {
+        return scoreDao.findAll();
+    }
+
     /**
      * 通过ID查询单条数据
      *
@@ -28,6 +40,11 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public Score queryById(Integer scoreid) {
         return this.scoreDao.queryById(scoreid);
+    }
+
+    @Override
+    public Score queryByStuId(Integer stuid) {
+        return scoreDao.queryByStuId(stuid);
     }
 
     /**
