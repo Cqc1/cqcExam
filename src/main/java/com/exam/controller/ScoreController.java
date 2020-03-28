@@ -9,6 +9,7 @@ import com.exam.util.ApiResultHandler;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Score)表控制层
@@ -56,7 +57,15 @@ public class ScoreController {
             return ApiResultHandler.buildApiResult(404,"查询的分数不存在",null);
         }
     }
-
+    @GetMapping("selectByExamId/{examid}")
+    public ApiResult selectByExamId(@PathVariable("examid")Integer examid) {
+        List<Score> res =scoreService.queryByExamId(examid);
+        if (!res.isEmpty()) {
+            return ApiResultHandler.buildApiResult(200,"请求成功",res);
+        } else {
+            return ApiResultHandler.buildApiResult(404,"查询的分数不存在",null);
+        }
+    }
     //批量删除所有选中的分数
     @DeleteMapping("/deleteByIds/{param}")
     public ApiResult deleteByIds(@PathVariable("param") String param){

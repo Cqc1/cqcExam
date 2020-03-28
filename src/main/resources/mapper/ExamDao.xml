@@ -4,6 +4,7 @@
 
     <resultMap type="com.exam.entity.Exam" id="ExamMap">
         <result property="examid" column="examId" jdbcType="INTEGER"/>
+        <result property="exname" column="exname" jdbcType="VARCHAR"/>
         <result property="paperid" column="paperId" jdbcType="INTEGER"/>
         <result property="courseid" column="courseid" jdbcType="INTEGER"/>
         <result property="majors" column="majors" jdbcType="VARCHAR"/>
@@ -20,6 +21,7 @@
 
     <resultMap type="com.exam.entity.Exam" id="ExamResultMap">
         <result property="examid" column="examId" jdbcType="INTEGER"/>
+        <result property="exname" column="exname" jdbcType="VARCHAR"/>
         <result property="paperid" column="paperId" jdbcType="INTEGER"/>
         <result property="courseid" column="courseid" jdbcType="INTEGER"/>
         <result property="majors" column="majors" jdbcType="VARCHAR"/>
@@ -56,7 +58,7 @@
     <!--查询所有-->
     <select id="findAll" resultMap="ExamResultMap">
         select
-          examId, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
+          examId,exname, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
            majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
            major.major as major,institution.instituName as instituname
         from exam,paper,course,major,institution
@@ -66,7 +68,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="ExamResultMap">
         select
-          examId, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
+          examId,exname,  paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
            majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
            major.major as major,institution.instituName as instituname
         from exam,paper,course,major,institution
@@ -78,7 +80,7 @@
     <!--通过专业id查询单个-->
     <select id="querByMajorId" resultMap="ExamResultMap">
         select
-          examId, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
+          examId,exname,  paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
            majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
            major.major as major,institution.instituName as instituname
         from exam,paper,course,major,institution
@@ -90,7 +92,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ExamMap">
         select
-          examId, paperId, courseid, majors, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
+          examId,exname,  paperId, courseid, majors, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
         from cqc_exam.exam
         limit #{offset}, #{limit}
     </select>
@@ -98,11 +100,14 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ExamMap">
         select
-          examId, paperId, courseid, majors, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
+          examId,exname,  paperId, courseid, majors, grade, term, major, institution, exTime, exPlace, exDate, description, isExam
         from cqc_exam.exam
         <where>
             <if test="examid != null">
                 and examId = #{examid}
+            </if>
+            <if test="exname != null">
+                and exname = #{exname}
             </if>
             <if test="paperid != null">
                 and paperId = #{paperid}
@@ -145,8 +150,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="examid" useGeneratedKeys="true">
-        insert into cqc_exam.exam(paperId, courseid, majors, grade, term, majorId, institutionId, exTime, exPlace, exDate, description, isExam)
-        values (#{paperid}, #{courseid}, #{majors}, #{grade}, #{term}, #{majorid}, #{institutionid}, #{extime}, #{explace}, #{exdate}, #{description}, #{isexam})
+        insert into cqc_exam.exam(paperId,exname, courseid, majors, grade, term, majorId, institutionId, exTime, exPlace, exDate, description, isExam)
+        values (#{paperid},#{exname}, #{courseid}, #{majors}, #{grade}, #{term}, #{majorid}, #{institutionid}, #{extime}, #{explace}, #{exdate}, #{description}, #{isexam})
     </insert>
 
     <!--通过主键修改数据-->
@@ -155,6 +160,9 @@
         <set>
             <if test="paperid != null">
                 paperId = #{paperid},
+            </if>
+            <if test="exname != null">
+                exname = #{exname},
             </if>
             <if test="courseid != null">
                 courseid = #{courseid},

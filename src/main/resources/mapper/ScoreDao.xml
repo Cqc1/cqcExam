@@ -71,6 +71,17 @@
         and sc.stuId = #{stuid}
     </select>
 
+    <!--查询单个-->
+    <select id="queryByExamId" resultMap="ScoreResultMap">
+      select
+           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,e.grade as grade,e.term as term,e.description as description,
+           stu.sex,stu.tel,stu.stuname,cl.calName as claname,ma.major as major,co.couName as course,i.instituName as instituname
+        from score sc,exam e ,student stu,institution i,course co,major ma,clazz cl
+         where e.examId=sc.examId and sc.stuId=stu.stuId and stu.clazzId=cl.clazzId and cl.majorId=ma.majorId
+         and ma.institutionId=i.institutionId and e.courseid=co.courseId
+        and sc.examId = #{examid}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ScoreMap">
         select

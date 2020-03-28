@@ -47,6 +47,11 @@ public class ScoreServiceImpl implements ScoreService {
         return scoreDao.queryByStuId(stuid);
     }
 
+    @Override
+    public List<Score> queryByExamId(Integer examid) {
+        return scoreDao.queryByExamId(examid);
+    }
+
     /**
      * 查询多条数据
      *

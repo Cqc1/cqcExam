@@ -22,6 +22,10 @@ public class Exam implements Serializable {
     */
     private Integer examid;
     /**
+     * 考试名称
+     */
+    private String exname;
+    /**
     * 试卷编号
     */
     private Integer paperid;
