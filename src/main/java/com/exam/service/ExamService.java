@@ -16,6 +16,10 @@ public interface ExamService {
 
     IPage<Exam> findAll(Page page);
 
+    List<Exam> findAll();
+
+    IPage<Exam> findByMajor(Integer majorid,Page page);
+
     /**
      * 通过ID查询单条数据
      *
@@ -25,6 +29,8 @@ public interface ExamService {
     Exam queryById(Integer examid);
 
     List<Exam> querByMajorId(Integer majorid);
+
+    List<Exam> querByexName(String exname);
 
     /**
      * 查询多条数据

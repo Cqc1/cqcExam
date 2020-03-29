@@ -32,6 +32,11 @@ public class ExamController {
         IPage<Exam> res = examService.findAll(examPage);
         return  ApiResultHandler.buildApiResult(200,"分页查询所有考试",res);
     }
+    @GetMapping("/exams")
+    public ApiResult find() {
+        List<Exam> res = examService.findAll();
+        return  ApiResultHandler.buildApiResult(200,"分页查询所有考试",res);
+    }
     /**
      * 通过主键查询单条数据
      *
@@ -46,6 +51,21 @@ public class ExamController {
         } else {
             return ApiResultHandler.buildApiResult(404,"查询的试卷不存在",null);
         }
+    }
+    @GetMapping("selectByexName/{exname}")
+    public ApiResult selectById(@PathVariable("exname")String exname) {
+        List<Exam> res =examService.querByexName(exname);
+        if (!res.isEmpty()) {
+            return ApiResultHandler.buildApiResult(200,"请求成功",res);
+        } else {
+            return ApiResultHandler.buildApiResult(404,"查询的试卷不存在",null);
+        }
+    }
+    @GetMapping("/findByMajorId/{majorid}/{page}/{size}")
+    public ApiResult findAll(@PathVariable("majorid")Integer majorid,@PathVariable Integer page, @PathVariable Integer size) {
+        Page<Exam> examPage = new Page<>(page,size);
+        IPage<Exam> res = examService.findByMajor(majorid,examPage);
+        return  ApiResultHandler.buildApiResult(200,"分页查询所有考试",res);
     }
     @GetMapping("selectByMajorId/{majorid}")
     public List<Exam> selectByMajorId(@PathVariable("majorid")Integer majorid) {

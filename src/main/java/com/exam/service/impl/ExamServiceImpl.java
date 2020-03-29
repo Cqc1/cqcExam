@@ -26,6 +26,16 @@ public class ExamServiceImpl implements ExamService {
         return examDao.findAll(page);
     }
 
+    @Override
+    public List<Exam> findAll() {
+        return examDao.findAll();
+    }
+
+    @Override
+    public IPage<Exam> findByMajor(Integer majorid, Page page) {
+        return examDao.findByMajor(majorid,page);
+    }
+
     /**
      * 通过ID查询单条数据
      *
@@ -40,6 +50,11 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public List<Exam> querByMajorId(Integer majorid) {
         return examDao.querByMajorId(majorid);
+    }
+
+    @Override
+    public List<Exam> querByexName(String exname) {
+        return examDao.querByexName(exname);
     }
 
     /**
