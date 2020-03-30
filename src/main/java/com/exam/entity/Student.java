@@ -54,6 +54,10 @@ public class Student implements Serializable {
 
     private Clazz clazz;//班级实体
 
+    private Integer institutionid;//所属院系
+
+    private Integer majorid;//所属专业
+
 
 
 }

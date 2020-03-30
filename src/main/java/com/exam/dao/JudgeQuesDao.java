@@ -51,4 +51,8 @@ public interface JudgeQuesDao {
     @Select("select quesId from judge_ques where courseId =#{courseid} and level=#{level} order by rand() desc limit #{quesNum}")
     List<Integer> findByCourse(Integer courseid,String level,Integer quesNum);
 
+    //查询试题详细信息
+    @Select("select * from judge_ques where quesId in (select quesId from paper where quesType = 1 and paperId = #{paperid})")
+    List<JudgeQues> findByIdAndType(Integer paperid);
+
 }

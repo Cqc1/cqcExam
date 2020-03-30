@@ -56,4 +56,9 @@ public class FillQuesServiceImpl implements FillQuesService {
     public List<Integer> findByCourse(Integer courseid, String level, Integer quesNum) {
         return fillQuesDao.findByCourse(courseid,level,quesNum);
     }
+
+    @Override
+    public List<FillQues> findByIdAndType(Integer paperid) {
+        return fillQuesDao.findByIdAndType(paperid);
+    }
 }

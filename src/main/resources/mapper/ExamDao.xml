@@ -42,6 +42,7 @@
             <id property="paperid" column="paperId"/>
             <result property="courseid" column="courseId"/>
             <result property="totalscore" column="totalScore"/>
+            <result property="description" column="description"/>
         </association>
         <association property="major" javaType="com.exam.entity.Major">
             <id property="majorid" column="majorid"/>

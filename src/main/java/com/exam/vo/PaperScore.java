@@ -15,6 +15,8 @@ public class PaperScore {
 
     private String quesname;   //该题型名称
 
+    private Integer quesnum;   //该题型数量
+
     private Integer typescore;  //该试题总分值
 
 

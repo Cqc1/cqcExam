@@ -2,14 +2,16 @@ package com.exam.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.exam.entity.ApiResult;
-import com.exam.entity.Paper;
-import com.exam.service.PaperService;
+import com.exam.entity.*;
+import com.exam.service.*;
 import com.exam.util.ApiResultHandler;
+import com.exam.vo.PaperScore;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (Paper)表控制层
@@ -24,6 +26,18 @@ public class PaperController {
      */
     @Resource
     private PaperService paperService;
+    @Resource
+    private SingQuesService singService;
+    @Resource
+    private MultQuesService multService;
+    @Resource
+    private FillQuesService fillService;
+    @Resource
+    private JudgeQuesService judgeService;
+    @Resource
+    private ShortQuesService shortService;
+    @Resource
+    private QuesPaperService quesPaperService;
 
     //分页查询所有试卷
     @GetMapping("/papers/{page}/{size}")
@@ -92,5 +106,31 @@ public class PaperController {
             return ApiResultHandler.buildApiResult(200,"更新成功",res);
         }
         return ApiResultHandler.buildApiResult(400,"更新失败",res);
+    }
+
+    @GetMapping("/paper_content/{paperid}")
+    public Map<Integer, List<?>> findContentById(@PathVariable("paperid") Integer paperid) {
+        List<JudgeQues> judgeQuesRes = judgeService.findByIdAndType(paperid);   //判断题题库 4
+        Map<Integer, List<?>> map = new HashMap<>();
+        QuesPaper res = quesPaperService.findScoreById(paperid);
+        List<PaperScore> paperScores=res.getPaperScores();
+        for(int i=0;i<paperScores.size();i++){
+            if(paperScores.get(i).getQuestype()==1){
+                List<SingQues> singQuesRes = singService.findByIdAndType(paperid);   //单题题库 1
+                map.put(1,singQuesRes);
+            }else if(paperScores.get(i).getQuestype()==2){
+                List<MultQues> multQuesRes = multService.findByIdAndType(paperid);   //多题题库 2
+                map.put(2,multQuesRes);
+            }else if(paperScores.get(i).getQuestype()==3){
+                List<FillQues> fillQuesRes = fillService.findByIdAndType(paperid);     //填空题题库 3
+                map.put(3,fillQuesRes);
+            }else if(paperScores.get(i).getQuestype()==4){
+                map.put(4,judgeQuesRes);
+            }else{
+                List<ShortQues> shortQuesRes=shortService.findByIdAndType(paperScores.get(i).getQuestype(),paperid);
+                map.put(paperScores.get(i).getQuestype(),shortQuesRes);
+            }
+        }
+        return  map;
     }
 }

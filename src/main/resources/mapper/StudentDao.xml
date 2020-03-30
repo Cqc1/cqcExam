@@ -22,6 +22,8 @@
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="tel" column="tel" jdbcType="CHAR"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
+        <result property="majorid" column="majorid" jdbcType="INTEGER"/>
+        <result property="institutionid" column="institutionid" jdbcType="INTEGER"/>
         <association property="clazz" javaType="com.exam.entity.Clazz">
             <id property="clazzid" column="clazzId" jdbcType="INTEGER"/>
             <result property="calname" column="calName" jdbcType="VARCHAR"/>
@@ -32,9 +34,11 @@
     <!--查询单个-->
     <select id="queryById" resultMap="StudentResultMap">
         select
-          stuId, stuName, stuPwd, sex, cqc_exam.student.clazzId, email, tel, role,clazz.calName as calname
-        from cqc_exam.student,clazz
-        where stuId = #{stuid} and cqc_exam.student.clazzid=clazz.clazzId
+          stuId, stuName, stuPwd, sex, cqc_exam.student.clazzId, email, tel, role,clazz.calName as calname,
+          major.majorId as majorid , institution.institutionId as institutionid
+        from cqc_exam.student,clazz,major,institution
+        where stuId = #{stuid} and cqc_exam.student.clazzId=clazz.clazzId and clazz.majorid=major.majorid
+        and major.institutionId=institution.institutionId
     </select>
 
     <!--查询单个-->

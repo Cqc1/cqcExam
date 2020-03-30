@@ -8,35 +8,40 @@
         <result property="quesid" column="quesId" jdbcType="INTEGER"/>
     </resultMap>
     <select id="findScoreById" resultMap="QuesPaperResultMap">
-     select paperid,questype,quesname,typescore
+     select paperid,questype,quesname,typescore,quesnum
         from
         (select ques_paper.paperId as paperid,ques_paper.quesType as questype,questype.quesName as quesname ,sum(sing_ques.score) as typescore
+        ,COUNT(ques_paper.quesType) as quesnum
         from sing_ques,ques_paper,questype
         where ques_paper.quesId=sing_ques.quesId and ques_paper.quesType=sing_ques.quesType and questype.quesType=ques_paper.quesType
         GROUP  BY paperid ,questype,quesname
         UNION
         select ques_paper.paperId as paperid,ques_paper.quesType as questype,questype.quesName as quesname ,sum(mult_ques.score) as typescore
+        ,COUNT(ques_paper.quesType) as quesnum
         from mult_ques,ques_paper,questype
         where ques_paper.quesId=mult_ques.quesId and ques_paper.quesType=mult_ques.quesType and questype.quesType=ques_paper.quesType
         GROUP  BY paperid ,questype,quesname
         UNION
         select ques_paper.paperId as paperid,ques_paper.quesType as questype,questype.quesName as quesname ,sum(fill_ques.score) as typescore
+        ,COUNT(ques_paper.quesType) as quesnum
         from fill_ques,ques_paper,questype
         where ques_paper.quesId=fill_ques.quesId and ques_paper.quesType=fill_ques.quesType and questype.quesType=ques_paper.quesType
         GROUP  BY paperid ,questype,quesname
         UNION
         select ques_paper.paperId as paperid,ques_paper.quesType as questype,questype.quesName as quesname ,sum(judge_ques.score) as typescore
+        ,COUNT(ques_paper.quesType) as quesnum
         from judge_ques,ques_paper,questype
         where ques_paper.quesId=judge_ques.quesId and ques_paper.quesType=judge_ques.quesType and questype.quesType=ques_paper.quesType
         GROUP  BY paperid ,questype,quesname
         UNION
         select ques_paper.paperId as paperid,ques_paper.quesType as questype,questype.quesName as quesname ,sum(short_ques.score) as typescore
+        ,COUNT(ques_paper.quesType) as quesnum
         from short_ques,ques_paper,questype
         where ques_paper.quesId=short_ques.quesId and ques_paper.quesType=short_ques.quesType and questype.quesType=ques_paper.quesType
         GROUP  BY paperid ,questype,quesname
         ) as b
          where paperid=#{paperid}
-        ORDER BY paperid ,questype,quesname,typescore
+        ORDER BY paperid ,questype,quesname,typescore,quesnum
    </select>
 
     <resultMap type="com.exam.entity.QuesPaper" id="QuesPaperResultMap">
@@ -45,6 +50,7 @@
             <result property="paperid" column="paperid" />
             <result property="questype" column="questype"/>
             <result property="quesname" column="quesname"/>
+            <result property="quesnum" column="quesnum"/>
             <result property="typescore" column="typescore"/>
         </collection>
     </resultMap>

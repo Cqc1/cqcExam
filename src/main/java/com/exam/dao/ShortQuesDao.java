@@ -54,4 +54,8 @@ public interface ShortQuesDao {
     //随机组卷获取试题
     @Select("select quesId from short_ques where quesType=#{questype} and courseId =#{courseid} and level=#{level} order by rand() desc limit #{quesNum}")
     List<Integer> findByCourse(Integer questype,Integer courseid,String level,Integer quesNum);
+
+    //查询试题详细信息
+    @Select("select * from short_ques where quesId in (select quesId from paper where quesType = #{questype} and paperId = #{paperid})")
+    List<ShortQues> findByIdAndType(Integer questype,Integer paperid);
 }

@@ -52,4 +52,8 @@ public interface MultQuesDao {
     @Select("select quesId from mult_ques where courseId =#{courseid} and level=#{level} order by rand() desc limit #{quesNum}")
     List<Integer> findByCourse(Integer courseid,String level,Integer quesNum);
 
+    //查询试题详细信息
+    @Select("select * from mult_ques where quesId in (select quesId from paper where quesType = 2 and paperId = #{paperid})")
+    List<MultQues> findByIdAndType(Integer paperid);
+
 }
