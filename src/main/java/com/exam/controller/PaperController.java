@@ -110,7 +110,6 @@ public class PaperController {
 
     @GetMapping("/paper_content/{paperid}")
     public Map<Integer, List<?>> findContentById(@PathVariable("paperid") Integer paperid) {
-        List<JudgeQues> judgeQuesRes = judgeService.findByIdAndType(paperid);   //判断题题库 4
         Map<Integer, List<?>> map = new HashMap<>();
         QuesPaper res = quesPaperService.findScoreById(paperid);
         List<PaperScore> paperScores=res.getPaperScores();
@@ -125,6 +124,7 @@ public class PaperController {
                 List<FillQues> fillQuesRes = fillService.findByIdAndType(paperid);     //填空题题库 3
                 map.put(3,fillQuesRes);
             }else if(paperScores.get(i).getQuestype()==4){
+                List<JudgeQues> judgeQuesRes = judgeService.findByIdAndType(paperid);   //判断题题库 4
                 map.put(4,judgeQuesRes);
             }else{
                 List<ShortQues> shortQuesRes=shortService.findByIdAndType(paperScores.get(i).getQuestype(),paperid);

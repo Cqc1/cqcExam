@@ -52,7 +52,7 @@ public interface JudgeQuesDao {
     List<Integer> findByCourse(Integer courseid,String level,Integer quesNum);
 
     //查询试题详细信息
-    @Select("select * from judge_ques where quesId in (select quesId from paper where quesType = 1 and paperId = #{paperid})")
+    @Select("select * from judge_ques where quesId in (select quesId from ques_paper where quesType = 4 and paperId = #{paperid})")
     List<JudgeQues> findByIdAndType(Integer paperid);
 
 }

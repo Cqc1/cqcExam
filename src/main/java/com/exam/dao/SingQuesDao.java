@@ -53,6 +53,6 @@ public interface SingQuesDao {
     List<Integer> findByCourse(Integer courseid,String level,Integer quesNum);
 
     //查询试题详细信息
-    @Select("select * from sing_ques where quesId in (select quesId from paper where quesType = 1 and paperId = #{paperid})")
+    @Select("select * from sing_ques where quesId in (select quesId from ques_paper where quesType = 1 and paperId = #{paperid})")
     List<SingQues> findByIdAndType(Integer paperid);
 }

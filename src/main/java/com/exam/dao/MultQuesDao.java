@@ -53,7 +53,7 @@ public interface MultQuesDao {
     List<Integer> findByCourse(Integer courseid,String level,Integer quesNum);
 
     //查询试题详细信息
-    @Select("select * from mult_ques where quesId in (select quesId from paper where quesType = 2 and paperId = #{paperid})")
+    @Select("select * from mult_ques where quesId in (select quesId from ques_paper where quesType = 2 and paperId = #{paperid})")
     List<MultQues> findByIdAndType(Integer paperid);
 
 }

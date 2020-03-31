@@ -50,6 +50,6 @@ public interface FillQuesDao {
     List<Integer> findByCourse(Integer courseid,String level,Integer quesNum);
 
     //查询试题详细信息
-    @Select("select * from fill_ques where quesId in (select quesId from paper where quesType = 3 and paperId = #{paperid})")
+    @Select("select * from fill_ques where quesId in (select quesId from ques_paper where quesType = 3 and paperId = #{paperid})")
     List<FillQues> findByIdAndType(Integer paperid);
 }

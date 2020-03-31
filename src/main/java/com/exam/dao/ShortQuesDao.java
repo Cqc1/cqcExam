@@ -56,6 +56,6 @@ public interface ShortQuesDao {
     List<Integer> findByCourse(Integer questype,Integer courseid,String level,Integer quesNum);
 
     //查询试题详细信息
-    @Select("select * from short_ques where quesId in (select quesId from paper where quesType = #{questype} and paperId = #{paperid})")
+    @Select("select * from short_ques where quesId in (select quesId from ques_paper where quesType = #{questype} and paperId = #{paperid})")
     List<ShortQues> findByIdAndType(Integer questype,Integer paperid);
 }
