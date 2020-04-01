@@ -26,6 +26,8 @@ public class Score implements Serializable {
     * 考试编号
     */
     private Integer examid;
+
+    private String exname;
     /**
     * 学号
     */
@@ -45,8 +47,10 @@ public class Score implements Serializable {
     /**
     * 总成绩
     */
-
     private Integer totalscore;
+
+    //交卷时间
+    private String answerdate;
 
     private String claname;   //班级名称
 
@@ -61,6 +65,7 @@ public class Score implements Serializable {
     private String description;//试卷描述
 
     private Student student;//学生实体
+
 
 
 }

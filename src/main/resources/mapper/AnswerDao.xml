@@ -6,15 +6,18 @@
         <result property="answerid" column="answerId" jdbcType="INTEGER"/>
         <result property="examid" column="examId" jdbcType="INTEGER"/>
         <result property="stuid" column="stuId" jdbcType="INTEGER"/>
-        <result property="questype" column="quesType" jdbcType="VARCHAR"/>
+        <result property="questype" column="quesType" jdbcType="INTEGER"/>
         <result property="quesid" column="quesId" jdbcType="INTEGER"/>
         <result property="answer" column="answer" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="INTEGER"/>
+        <result property="rightAnswer" column="rightAnswer" jdbcType="VARCHAR"/>
+
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="AnswerMap">
         select
-          answerId, examId, stuId, quesType, quesId, answer
+          answerId, examId, stuId, quesType, quesId, answer,score,rightAnswer
         from cqc_exam.answer
         where answerId = #{answerid}
     </select>
@@ -22,7 +25,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AnswerMap">
         select
-          answerId, examId, stuId, quesType, quesId, answer
+          answerId, examId, stuId, quesType, quesId, answer,score,rightAnswer
         from cqc_exam.answer
         limit #{offset}, #{limit}
     </select>
@@ -30,7 +33,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="AnswerMap">
         select
-          answerId, examId, stuId, quesType, quesId, answer
+          answerId, examId, stuId, quesType, quesId, answer,score,rightAnswer
         from cqc_exam.answer
         <where>
             <if test="answerid != null">
@@ -51,13 +54,19 @@
             <if test="answer != null and answer != ''">
                 and answer = #{answer}
             </if>
+            <if test="score != null">
+                and score = #{score}
+            </if>
+            <if test="rightAnswer != null and rightAnswer != ''">
+                and rightAnswer = #{rightAnswer}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="answerid" useGeneratedKeys="true">
-        insert into cqc_exam.answer(examId, stuId, quesType, quesId, answer)
-        values (#{examid}, #{stuid}, #{questype}, #{quesid}, #{answer})
+        insert into cqc_exam.answer(examId, stuId, quesType, quesId, answer,score,rightAnswer)
+        values (#{examid}, #{stuid}, #{questype}, #{quesid}, #{answer},#{score},#{rightAnswer})
     </insert>
 
     <!--通过主键修改数据-->
@@ -78,6 +87,12 @@
             </if>
             <if test="answer != null and answer != ''">
                 answer = #{answer},
+            </if>
+            <if test="score != null">
+                 score = #{score},
+            </if>
+            <if test="rightAnswer != null and rightAnswer != ''">
+                rightAnswer = #{rightAnswer},
             </if>
         </set>
         where answerId = #{answerid}

@@ -1,10 +1,13 @@
 package com.exam.controller;
 
 import com.exam.entity.Answer;
+import com.exam.entity.ApiResult;
 import com.exam.service.AnswerService;
+import com.exam.util.ApiResultHandler;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Answer)表控制层
@@ -30,6 +33,17 @@ public class AnswerController {
     @GetMapping("selectOne")
     public Answer selectOne(Integer id) {
         return this.answerService.queryById(id);
+    }
+
+    @PostMapping("/commit")
+    public ApiResult commit(@RequestBody List<Answer> answer) {
+        for (int i = 0; i < answer.size(); i++) {
+            Answer res = answerService.insert(answer.get(i));
+            if (res == null) {
+                return ApiResultHandler.buildApiResult(400, "添加失败", null);
+            }
+        }
+        return ApiResultHandler.buildApiResult(200, "添加成功", null);
     }
 
 }

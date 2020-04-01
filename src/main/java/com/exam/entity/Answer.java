@@ -27,7 +27,7 @@ public class Answer implements Serializable {
     /**
     * 试题类型
     */
-    private String questype;
+    private Integer questype;
     /**
     * 试题编号
     */
@@ -36,6 +36,10 @@ public class Answer implements Serializable {
     * 考生答案
     */
     private String answer;
+
+    private String rightAnswer;
+
+    private Integer score;
 
 
 }
