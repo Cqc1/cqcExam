@@ -24,6 +24,8 @@ public interface AnswerDao extends BaseMapper<Answer> {
      */
     Answer queryById(Integer answerid);
 
+    Answer querByQuesIdAndType(Integer questype,Integer quesid,Integer stuid,Integer examid);
+
     /**
      * 查询指定行数据
      *

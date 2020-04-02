@@ -19,6 +19,8 @@ public interface AnswerService {
      */
     Answer queryById(Integer answerid);
 
+    Answer querByQuesIdAndType(Integer questype,Integer quesid,Integer stuid,Integer examid);
+
     /**
      * 查询多条数据
      *

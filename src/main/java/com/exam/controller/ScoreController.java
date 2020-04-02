@@ -50,8 +50,8 @@ public class ScoreController {
     }
     @GetMapping("selectByStuId/{stuid}")
     public ApiResult selectByStuId(@PathVariable("stuid")Integer stuid) {
-        Score res =scoreService.queryByStuId(stuid);
-        if (res != null) {
+        List<Score> res =scoreService.queryByStuId(stuid);
+        if (!res.isEmpty()) {
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
         } else {
             return ApiResultHandler.buildApiResult(404,"查询的分数不存在",null);

@@ -45,7 +45,7 @@ public interface ScoreDao extends BaseMapper<Score> {
      * @param stuid 主键
      * @return 实例对象
      */
-    Score queryByStuId(Integer stuid);
+    List<Score> queryByStuId(Integer stuid);
 
     /**
      * 通过ID查询单条数据

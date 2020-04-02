@@ -30,6 +30,11 @@ public class AnswerServiceImpl implements AnswerService {
         return this.answerDao.queryById(answerid);
     }
 
+    @Override
+    public Answer querByQuesIdAndType(Integer questype, Integer quesid,Integer stuid,Integer examid) {
+        return answerDao.querByQuesIdAndType(questype, quesid,stuid,examid);
+    }
+
     /**
      * 查询多条数据
      *

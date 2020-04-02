@@ -22,6 +22,14 @@
         where answerId = #{answerid}
     </select>
 
+    <!--查询单个-->
+    <select id="querByQuesIdAndType" resultMap="AnswerMap">
+        select
+          answerId, examId, stuId, quesType, quesId, answer,score,rightAnswer
+        from cqc_exam.answer
+        where quesType = #{questype} and quesId=#{quesid} and stuId=#{stuid} and examId=#{examid}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AnswerMap">
         select

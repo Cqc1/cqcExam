@@ -38,10 +38,21 @@ public class AnswerController {
     @PostMapping("/commit")
     public ApiResult commit(@RequestBody List<Answer> answer) {
         for (int i = 0; i < answer.size(); i++) {
-            Answer res = answerService.insert(answer.get(i));
-            if (res == null) {
-                return ApiResultHandler.buildApiResult(400, "添加失败", null);
+            Answer answer1=answerService.querByQuesIdAndType(answer.get(i).getQuestype(),answer.get(i).getQuesid(),answer.get(i).getStuid(),answer.get(i).getExamid());
+            if(answer1==null){
+                Answer res = answerService.insert(answer.get(i));
+                if (res == null) {
+                    return ApiResultHandler.buildApiResult(400, "添加失败", null);
+                }
+            }else{
+                Answer up=answer.get(i);
+                up.setAnswerid(answer1.getAnswerid());
+                Answer res = answerService.update(up);
+                if (res == null) {
+                    return ApiResultHandler.buildApiResult(400, "更新失败", null);
+                }
             }
+
         }
         return ApiResultHandler.buildApiResult(200, "添加成功", null);
     }

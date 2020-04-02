@@ -43,7 +43,7 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Score queryByStuId(Integer stuid) {
+    public List<Score> queryByStuId(Integer stuid) {
         return scoreDao.queryByStuId(stuid);
     }
 

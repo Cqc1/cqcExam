@@ -22,9 +22,9 @@ public interface ExamDao {
      * @param page
      * @return List<Paper>
      */
-    IPage<Exam> findAll(Page page);
+    IPage<Exam> findAll(Page page,Integer isexam);
 
-    List<Exam> findAll();
+    List<Exam> findAll(Integer isexam);
 
     IPage<Exam> findByMajor(Integer majorid,Page page);
 

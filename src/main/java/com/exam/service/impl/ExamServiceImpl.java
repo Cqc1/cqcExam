@@ -22,13 +22,13 @@ public class ExamServiceImpl implements ExamService {
     private ExamDao examDao;
 
     @Override
-    public IPage<Exam> findAll(Page page) {
-        return examDao.findAll(page);
+    public IPage<Exam> findAll(Page page,Integer isexam) {
+        return examDao.findAll(page,isexam);
     }
 
     @Override
-    public List<Exam> findAll() {
-        return examDao.findAll();
+    public List<Exam> findAll(Integer isexam) {
+        return examDao.findAll(isexam);
     }
 
     @Override

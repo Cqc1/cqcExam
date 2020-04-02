@@ -26,15 +26,15 @@ public class ExamController {
     @Resource
     private ExamService examService;
 
-    @GetMapping("/findAll/{page}/{size}")
-    public ApiResult findAll(@PathVariable Integer page, @PathVariable Integer size) {
+    @GetMapping("/findAll/{page}/{size}/{isexam}")
+    public ApiResult findAll(@PathVariable Integer page, @PathVariable Integer size, @PathVariable Integer isexam) {
         Page<Exam> examPage = new Page<>(page,size);
-        IPage<Exam> res = examService.findAll(examPage);
+        IPage<Exam> res = examService.findAll(examPage,isexam);
         return  ApiResultHandler.buildApiResult(200,"分页查询所有考试",res);
     }
-    @GetMapping("/exams")
-    public ApiResult find() {
-        List<Exam> res = examService.findAll();
+    @GetMapping("/exams/{isexam}")
+    public ApiResult find(@PathVariable Integer isexam) {
+        List<Exam> res = examService.findAll(isexam);
         return  ApiResultHandler.buildApiResult(200,"分页查询所有考试",res);
     }
     /**
@@ -62,7 +62,7 @@ public class ExamController {
         }
     }
     @GetMapping("/findByMajorId/{majorid}/{page}/{size}")
-    public ApiResult findAll(@PathVariable("majorid")Integer majorid,@PathVariable Integer page, @PathVariable Integer size) {
+    public ApiResult findAllByMajor(@PathVariable("majorid")Integer majorid,@PathVariable Integer page, @PathVariable Integer size) {
         Page<Exam> examPage = new Page<>(page,size);
         IPage<Exam> res = examService.findByMajor(majorid,examPage);
         return  ApiResultHandler.buildApiResult(200,"分页查询所有考试",res);
