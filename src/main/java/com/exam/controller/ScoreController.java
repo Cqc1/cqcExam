@@ -57,9 +57,9 @@ public class ScoreController {
             return ApiResultHandler.buildApiResult(404,"查询的分数不存在",null);
         }
     }
-    @GetMapping("selectByExamId/{examid}")
-    public ApiResult selectByExamId(@PathVariable("examid")Integer examid) {
-        List<Score> res =scoreService.queryByExamId(examid);
+    @GetMapping("selectByExamId/{examid}/{ispreview}")
+    public ApiResult selectByExamId(@PathVariable("examid")Integer examid,@PathVariable Integer ispreview) {
+        List<Score> res =scoreService.queryByExamId(examid,ispreview);
         if (!res.isEmpty()) {
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
         } else {

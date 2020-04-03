@@ -11,7 +11,7 @@
         <result property="totalscore" column="totalScore" jdbcType="INTEGER"/>
         <result property="course" column="course" jdbcType="VARCHAR"/>
         <result property="answerdate" column="answerDate" jdbcType="VARCHAR"/>
-
+        <result property="ispreview" column="isPreview" jdbcType="INTEGER"/>
     </resultMap>
 
 
@@ -31,6 +31,7 @@
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="answerdate" column="answerDate" jdbcType="VARCHAR"/>
         <result property="exname" column="exname" jdbcType="VARCHAR"/>
+        <result property="ispreview" column="isPreview" jdbcType="INTEGER"/>
 
         <association property="student" javaType="com.exam.entity.Student">
             <result property="stuid" column="stuId" jdbcType="INTEGER"/>
@@ -47,17 +48,18 @@
     <!--查询所有-->
     <select id="findAll" resultMap="ScoreResultMap">
         select
-           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,answerDate,e.exname as exname,e.grade as grade,e.term as term,e.description as description,
+           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,answerDate,isPreview,e.exname as exname,e.grade as grade,e.term as term,e.description as description,
            stu.sex,stu.tel,stu.stuname,cl.calName as claname,ma.major as major,co.couName as course,i.instituName as instituname
         from score sc,exam e ,student stu,institution i,course co,major ma,clazz cl
          where e.examId=sc.examId and sc.stuId=stu.stuId and stu.clazzId=cl.clazzId and cl.majorId=ma.majorId
          and ma.institutionId=i.institutionId and e.courseid=co.courseId
     </select>
 
+
     <!--查询单个-->
     <select id="queryById" resultMap="ScoreResultMap">
       select
-           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,answerDate,e.exname as exname,e.grade as grade,e.term as term,e.description as description,
+           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,answerDate,isPreview,e.exname as exname,e.grade as grade,e.term as term,e.description as description,
            stu.sex,stu.tel,stu.stuname,cl.calName as claname,ma.major as major,co.couName as course,i.instituName as instituname
         from score sc,exam e ,student stu,institution i,course co,major ma,clazz cl
          where e.examId=sc.examId and sc.stuId=stu.stuId and stu.clazzId=cl.clazzId and cl.majorId=ma.majorId
@@ -68,7 +70,7 @@
     <!--查询单个-->
     <select id="queryByStuId" resultMap="ScoreResultMap">
        select
-           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,answerDate,e.exname as exname,e.grade as grade,e.term as term,e.description as description,
+           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,answerDate,isPreview,e.exname as exname,e.grade as grade,e.term as term,e.description as description,
            stu.sex,stu.tel,stu.stuname,cl.calName as claname,ma.major as major,co.couName as course,i.instituName as instituname
         from score sc,exam e ,student stu,institution i,course co,major ma,clazz cl
          where e.examId=sc.examId  and sc.stuId=stu.stuId and stu.clazzId=cl.clazzId and cl.majorId=ma.majorId
@@ -79,18 +81,18 @@
     <!--查询单个-->
     <select id="queryByExamId" resultMap="ScoreResultMap">
       select
-           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,answerDate,e.exname as exname,e.grade as grade,e.term as term,e.description as description,
+           scoreId, sc.examId, sc.stuId, objScore, subScore, totalScore,answerDate,isPreview,e.exname as exname,e.grade as grade,e.term as term,e.description as description,
            stu.sex,stu.tel,stu.stuname,cl.calName as claname,ma.major as major,co.couName as course,i.instituName as instituname
         from score sc,exam e ,student stu,institution i,course co,major ma,clazz cl
          where e.examId=sc.examId and sc.stuId=stu.stuId and stu.clazzId=cl.clazzId and cl.majorId=ma.majorId
          and ma.institutionId=i.institutionId and e.courseid=co.courseId
-        and sc.examId = #{examid}
+        and sc.examId = #{examid} and isPreview=#{ispreview}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ScoreMap">
         select
-          scoreId, examId, stuId, course, objScore, subScore, totalScore,answerDate
+          scoreId, examId, stuId, course, objScore, subScore, totalScore,answerDate,isPreview
         from cqc_exam.score
         limit #{offset}, #{limit}
     </select>
@@ -98,7 +100,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ScoreMap">
         select
-          scoreId, examId, stuId, course, objScore, subScore, totalScore,answerDate
+          scoreId, examId, stuId, course, objScore, subScore, totalScore,answerDate,isPreview
         from cqc_exam.score
         <where>
             <if test="scoreid != null">
@@ -125,14 +127,17 @@
             <if test="answerdate != null">
                 and answerDate = #{answerdate}
             </if>
+            <if test="ispreview != null">
+                and isPreview = #{ispreview}
+            </if>
 
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="scoreid" useGeneratedKeys="true">
-        insert into cqc_exam.score(examId, stuId, course, objScore, subScore, totalScore,answerDate)
-        values (#{examid}, #{stuid}, #{course}, #{objscore}, #{subscore}, #{totalscore},#{answerdate})
+        insert into cqc_exam.score(examId, stuId, course, objScore, subScore, totalScore,answerDate,isPreview)
+        values (#{examid}, #{stuid}, #{course}, #{objscore}, #{subscore}, #{totalscore},#{answerdate},#{ispreview})
     </insert>
 
     <!--通过主键修改数据-->
@@ -159,6 +164,9 @@
             </if>
             <if test="answerdate != null">
                 answerDate = #{answerdate},
+            </if>
+            <if test="ispreview != null">
+                isPreview = #{ispreview},
             </if>
         </set>
         where scoreId = #{scoreid}

@@ -66,6 +66,16 @@
         where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
         and exam.majorId=major.majorId and exam.institutionId=institution.institutionId and exam.isExam=#{isexam}
     </select>
+    <!--查询所有-->
+    <select id="findPage" resultMap="ExamResultMap">
+        select
+          examId,exname, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
+           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
+           major.major as major,institution.instituName as instituname
+        from exam,paper,course,major,institution
+        where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
+        and exam.majorId=major.majorId and exam.institutionId=institution.institutionId
+    </select>
 
     <!--查询所有-->
     <select id="findByMajor" resultMap="ExamResultMap">

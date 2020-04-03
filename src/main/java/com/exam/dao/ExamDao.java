@@ -24,6 +24,8 @@ public interface ExamDao {
      */
     IPage<Exam> findAll(Page page,Integer isexam);
 
+    IPage<Exam> findPage(Page page);
+
     List<Exam> findAll(Integer isexam);
 
     IPage<Exam> findByMajor(Integer majorid,Page page);

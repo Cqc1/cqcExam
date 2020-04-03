@@ -48,8 +48,8 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public List<Score> queryByExamId(Integer examid) {
-        return scoreDao.queryByExamId(examid);
+    public List<Score> queryByExamId(Integer examid,Integer ispreview) {
+        return scoreDao.queryByExamId(examid,ispreview);
     }
 
     /**

@@ -49,7 +49,7 @@ public interface ScoreService {
      * @param examid 主键
      * @return 实例对象
      */
-    List<Score> queryByExamId(Integer examid);
+    List<Score> queryByExamId(Integer examid,Integer ispreview);
 
     /**
      * 查询多条数据

@@ -21,6 +21,8 @@ public interface AnswerService {
 
     Answer querByQuesIdAndType(Integer questype,Integer quesid,Integer stuid,Integer examid);
 
+    List<Answer> queryByExamIdAndStuId(Integer examid,Integer stuid);
+
     /**
      * 查询多条数据
      *

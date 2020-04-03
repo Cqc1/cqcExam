@@ -27,6 +27,11 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public IPage<Exam> findPage(Page page) {
+        return examDao.findPage(page);
+    }
+
+    @Override
     public List<Exam> findAll(Integer isexam) {
         return examDao.findAll(isexam);
     }

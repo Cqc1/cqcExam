@@ -62,6 +62,8 @@ public class Score implements Serializable {
 
     private String term ;//学期
 
+    private Integer ispreview;//是否查阅
+
     private String description;//试卷描述
 
     private Student student;//学生实体

@@ -6,9 +6,13 @@ import com.exam.entity.ApiResult;
 import com.exam.entity.Exam;
 import com.exam.service.ExamService;
 import com.exam.util.ApiResultHandler;
+import com.exam.util.dateTool;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,11 +30,65 @@ public class ExamController {
     @Resource
     private ExamService examService;
 
+    @GetMapping("/findPage/{page}/{size}")
+    public ApiResult findPage(@PathVariable Integer page, @PathVariable Integer size) throws ParseException {
+        Page<Exam> examPage = new Page<>(page,size);
+        IPage<Exam> res = examService.findPage(examPage);
+        if(res!=null){
+            List<Exam> exams=res.getRecords();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String dateString=df.format(new Date());
+            Date date =df.parse(dateString);
+            for(int i=0;i<exams.size();i++){
+                /*Date exdate = new Date(exams.get(i).getExtime());*/
+                Date beginData = df.parse(exams.get(i).getExdate());
+                System.out.println(date.toString() +"=====" +beginData.toString());
+                System.out.println((dateTool.getDatePoor(date,beginData)) + "分钟");
+                if(date.before(beginData)&&exams.get(i).getIsexam()!=2){
+                    exams.get(i).setIsexam(0);
+                    exams.get(i).setExamid(exams.get(i).getExamid());
+                    examService.update(exams.get(i));
+                }else if(((dateTool.getDatePoor(date,beginData))>(exams.get(i).getExtime()).longValue())&&exams.get(i).getIsexam()!=2){
+                    exams.get(i).setIsexam(1);
+                    exams.get(i).setExamid(exams.get(i).getExamid());
+                    examService.update(exams.get(i));
+                }
+            }
+            return  ApiResultHandler.buildApiResult(200,"分页查询所有考试",res);
+        }
+        return  ApiResultHandler.buildApiResult(400,"分页查询所有考试失败",null);
+    }
+
     @GetMapping("/findAll/{page}/{size}/{isexam}")
-    public ApiResult findAll(@PathVariable Integer page, @PathVariable Integer size, @PathVariable Integer isexam) {
+    public ApiResult findAll(@PathVariable Integer page, @PathVariable Integer size, @PathVariable Integer isexam) throws ParseException {
         Page<Exam> examPage = new Page<>(page,size);
         IPage<Exam> res = examService.findAll(examPage,isexam);
-        return  ApiResultHandler.buildApiResult(200,"分页查询所有考试",res);
+        if(res!=null){
+            List<Exam> exams=res.getRecords();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String dateString=df.format(new Date());
+            Date date =df.parse(dateString);
+            for(int i=0;i<exams.size();i++){
+                /*Date exdate = new Date(exams.get(i).getExtime());*/
+                Date beginData = df.parse(exams.get(i).getExdate());
+                System.out.println(date.toString() +"=====" +beginData.toString());
+                System.out.println((dateTool.getDatePoor(date,beginData)) + "分钟");
+                if(date.before(beginData)&&exams.get(i).getIsexam()!=2){
+                    exams.get(i).setIsexam(0);
+                    exams.get(i).setExamid(exams.get(i).getExamid());
+                    examService.update(exams.get(i));
+                }else if(((dateTool.getDatePoor(date,beginData))>(exams.get(i).getExtime()).longValue())&&exams.get(i).getIsexam()!=2){
+                    exams.get(i).setIsexam(1);
+                    exams.get(i).setExamid(exams.get(i).getExamid());
+                    examService.update(exams.get(i));
+                }
+            }
+        }
+        IPage<Exam> res2 = examService.findAll(examPage,isexam);
+        if(res2!=null){
+            return  ApiResultHandler.buildApiResult(200,"分页查询所有考试",res2);
+        }
+        return  ApiResultHandler.buildApiResult(400,"分页查询所有考试失败",null);
     }
     @GetMapping("/exams/{isexam}")
     public ApiResult find(@PathVariable Integer isexam) {

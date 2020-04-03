@@ -14,6 +14,12 @@
 
     </resultMap>
 
+    <select id="queryByExamIdAndStuId" resultMap="AnswerMap">
+        select
+          answerId, examId, stuId, quesType, quesId, answer,score,rightAnswer
+        from cqc_exam.answer
+        where examId=#{examid} and stuId = #{stuid}
+    </select>
     <!--查询单个-->
     <select id="queryById" resultMap="AnswerMap">
         select
