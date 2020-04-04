@@ -11,29 +11,36 @@
         <result property="answer" column="answer" jdbcType="VARCHAR"/>
         <result property="score" column="score" jdbcType="INTEGER"/>
         <result property="rightAnswer" column="rightAnswer" jdbcType="VARCHAR"/>
-
+        <association property="ques" javaType="com.exam.entity.Questype">
+            <result property="questype" column="quesType" jdbcType="INTEGER"/>
+            <result property="quesname" column="quesName" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
 
     <select id="queryByExamIdAndStuId" resultMap="AnswerMap">
         select
-          answerId, examId, stuId, quesType, quesId, answer,score,rightAnswer
-        from cqc_exam.answer
-        where examId=#{examid} and stuId = #{stuid}
+          answerId, examId, stuId, cqc_exam.answer.quesType, cqc_exam.answer.quesId, answer,score,rightAnswer,
+          questype.quesName as quesname
+        from cqc_exam.answer,questype
+        where examId=#{examid} and stuId = #{stuid} and questype.quesType=cqc_exam.answer.quesType
     </select>
     <!--查询单个-->
     <select id="queryById" resultMap="AnswerMap">
         select
-          answerId, examId, stuId, quesType, quesId, answer,score,rightAnswer
-        from cqc_exam.answer
-        where answerId = #{answerid}
+          answerId, examId, stuId, cqc_exam.answer.quesType, cqc_exam.answer.quesId, answer,score,rightAnswer,
+          questype.quesName as quesname
+        from cqc_exam.answer,questype
+        where answerId = #{answerid}  and questype.quesType=cqc_exam.answer.quesType
     </select>
 
     <!--查询单个-->
     <select id="querByQuesIdAndType" resultMap="AnswerMap">
-        select
-          answerId, examId, stuId, quesType, quesId, answer,score,rightAnswer
-        from cqc_exam.answer
-        where quesType = #{questype} and quesId=#{quesid} and stuId=#{stuid} and examId=#{examid}
+       select
+          answerId, examId, stuId, cqc_exam.answer.quesType, cqc_exam.answer.quesId, answer,score,rightAnswer,
+          questype.quesName as quesname
+        from cqc_exam.answer,questype
+        where questype.quesType=cqc_exam.answer.quesType
+        and cqc_exam.answer.quesType = #{questype} and quesId=#{quesid} and stuId=#{stuid} and examId=#{examid}
     </select>
 
     <!--查询指定行数据-->

@@ -27,7 +27,7 @@ public class ShortQuesServiceImpl implements ShortQuesService {
     }
 
     @Override
-    public ShortQues findByIdType(Integer quesid, String questype) {
+    public ShortQues findByIdType(Integer quesid, Integer questype) {
         return shortQuesDao.findByIdType(quesid,questype);
     }
 

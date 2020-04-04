@@ -41,5 +41,7 @@ public class Answer implements Serializable {
 
     private Integer score;
 
+    private Questype ques;
+
 
 }

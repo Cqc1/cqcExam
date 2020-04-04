@@ -56,61 +56,71 @@ public class ItemController {
                 // 单选题数据库获取
                 List<Integer> singNumbers = singService.findByCourse(paper.getCourseid(), item.getLevel(), composition.getQuesnum());
                 if (singNumbers.isEmpty()) {
+                    paperService.deletebyId(paperid);
                     return ApiResultHandler.buildApiResult(400, "单选题数据库获取失败", null);
-                }
-                for (Integer number : singNumbers) {
-                    QuesPaper quesPaper = new QuesPaper(paperid, 1, number);
-                    int index = quesPaperService.add(quesPaper);
-                    if (index == 0)
-                        return ApiResultHandler.buildApiResult(400, "单选题组卷保存失败", null);
+                }else {
+                    for (Integer number : singNumbers) {
+                        QuesPaper quesPaper = new QuesPaper(paperid, 1, number);
+                        int index = quesPaperService.add(quesPaper);
+                        if (index == 0)
+                            return ApiResultHandler.buildApiResult(400, "单选题组卷保存失败", null);
+                    }
                 }
             } else if (composition.getQuestype() == 2&&(composition.getQuesnum()!=null)) {
                 // 多选题数据库获取
                 List<Integer> multNumbers = multService.findByCourse(paper.getCourseid(), item.getLevel(), composition.getQuesnum());
                 if (multNumbers.isEmpty()) {
+                    paperService.deletebyId(paperid);
                     return ApiResultHandler.buildApiResult(400, "多选题数据库获取失败", null);
-                }
-                for (Integer number : multNumbers) {
-                    QuesPaper quesPaper = new QuesPaper(paperid, 2, number);
-                    int index = quesPaperService.add(quesPaper);
-                    if (index == 0)
-                        return ApiResultHandler.buildApiResult(400, "多选题组卷保存失败", null);
+                }else {
+                    for (Integer number : multNumbers) {
+                        QuesPaper quesPaper = new QuesPaper(paperid, 2, number);
+                        int index = quesPaperService.add(quesPaper);
+                        if (index == 0)
+                            return ApiResultHandler.buildApiResult(400, "多选题组卷保存失败", null);
+                    }
                 }
             } else if (composition.getQuestype() == 3&&(composition.getQuesnum()!=null)) {
                 // 填空题数据库获取
                 List<Integer> fillNumbers = fillService.findByCourse(paper.getCourseid(), item.getLevel(), composition.getQuesnum());
                 if (fillNumbers.isEmpty()) {
+                    paperService.deletebyId(paperid);
                     return ApiResultHandler.buildApiResult(400, "填空题数据库获取失败", null);
-                }
-                for (Integer number : fillNumbers) {
-                    QuesPaper quesPaper = new QuesPaper(paperid, 3, number);
-                    int index = quesPaperService.add(quesPaper);
-                    if (index == 0)
-                        return ApiResultHandler.buildApiResult(400, "填空题组卷保存失败", null);
+                }else {
+                    for (Integer number : fillNumbers) {
+                        QuesPaper quesPaper = new QuesPaper(paperid, 3, number);
+                        int index = quesPaperService.add(quesPaper);
+                        if (index == 0)
+                            return ApiResultHandler.buildApiResult(400, "填空题组卷保存失败", null);
+                    }
                 }
             } else if (composition.getQuestype() == 4&&(composition.getQuesnum()!=null)) {
                 // 判断题数据库获取
                 List<Integer> judgeNumbers = judgeService.findByCourse(paper.getCourseid(), item.getLevel(), composition.getQuesnum());
                 if (judgeNumbers.isEmpty()) {
+                    paperService.deletebyId(paperid);
                     return ApiResultHandler.buildApiResult(400, "判断题数据库获取失败", null);
-                }
-                for (Integer number : judgeNumbers) {
-                    QuesPaper quesPaper = new QuesPaper(paperid, 4, number);
-                    int index = quesPaperService.add(quesPaper);
-                    if (index == 0)
-                        return ApiResultHandler.buildApiResult(400, "判断题组卷保存失败", null);
+                }else {
+                    for (Integer number : judgeNumbers) {
+                        QuesPaper quesPaper = new QuesPaper(paperid, 4, number);
+                        int index = quesPaperService.add(quesPaper);
+                        if (index == 0)
+                            return ApiResultHandler.buildApiResult(400, "判断题组卷保存失败", null);
+                    }
                 }
             } else if(composition.getQuesnum()!=null) {
                 // 简答题等非客观题数据库获取
                 List<Integer> shortNumbers = shortService.findByCourse(composition.getQuestype(), paper.getCourseid(), item.getLevel(), composition.getQuesnum());
                 if (shortNumbers.isEmpty()) {
+                    paperService.deletebyId(paperid);
                     return ApiResultHandler.buildApiResult(400, "简单题等非客观题数据库获取失败", null);
-                }
-                for (Integer number : shortNumbers) {
-                    QuesPaper quesPaper = new QuesPaper(paperid, composition.getQuestype(), number);
-                    int index = quesPaperService.add(quesPaper);
-                    if (index == 0)
-                        return ApiResultHandler.buildApiResult(400, "简单题等非客观题组卷保存失败", null);
+                }else {
+                    for (Integer number : shortNumbers) {
+                        QuesPaper quesPaper = new QuesPaper(paperid, composition.getQuestype(), number);
+                        int index = quesPaperService.add(quesPaper);
+                        if (index == 0)
+                            return ApiResultHandler.buildApiResult(400, "简单题等非客观题组卷保存失败", null);
+                    }
                 }
             }
         }

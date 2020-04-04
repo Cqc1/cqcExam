@@ -16,7 +16,7 @@ public interface ShortQuesService {
 
     IPage<ShortQues> findAll(Page<ShortQues> page);
 
-    ShortQues findByIdType(Integer quesId,String questype);
+    ShortQues findByIdType(Integer quesId,Integer questype);
 
     ShortQues findById(Integer quesId);
 

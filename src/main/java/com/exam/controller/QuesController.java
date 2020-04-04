@@ -66,17 +66,17 @@ public class QuesController {
     }
     //查看单个试题详情
     @GetMapping("/ques_pre/{quesid}/{questype}")
-    public ApiResult findByIdType(@PathVariable("quesid") Integer quesid,@PathVariable("questype") String questype) {
+    public ApiResult findByIdType(@PathVariable("quesid") Integer quesid,@PathVariable("questype") Integer questype) {
         Object res= new Object();
         System.out.println(quesid+questype);
         System.out.println(questype.equals("1"));
-        if(questype.equals("1")){
+        if(questype==1){
             res=singService.findById(quesid);
-        }else if(questype.equals("2")){
+        }else if(questype==2){
             res=multService.findById(quesid);
-        }else if(questype.equals("3")){
+        }else if(questype==3){
             res=fillService.findById(quesid);
-        }else if(questype.equals("4")){
+        }else if(questype==4){
             res=judgeService.findById(quesid);
         }else {
             res=shortService.findByIdType(quesid,questype);

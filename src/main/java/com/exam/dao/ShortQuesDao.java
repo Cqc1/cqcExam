@@ -25,7 +25,7 @@ public interface ShortQuesDao {
 
     //按照类型和试题编号查询
 //    @Select("select * from short_ques where quesId = #{quesid} and questype=#{questype}")
-    ShortQues findByIdType(Integer quesid,String questype);
+    ShortQues findByIdType(Integer quesid,Integer questype);
 
     @Select("select * from short_ques where quesId = #{quesid}")
     ShortQues findById(Integer quesid);

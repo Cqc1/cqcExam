@@ -21,9 +21,18 @@ public class ShortQuesController {
      */
     @Resource
     private ShortQuesService shortQuesService;
+    @GetMapping("selectOne/{questype}/{quesid}")
+    public ApiResult selectOne(@PathVariable("questype") Integer questype,@PathVariable("quesid") Integer quesid)
+    {
+        ShortQues res=shortQuesService.findByIdType(quesid,questype);
+        if (res != null) {
+            return ApiResultHandler.buildApiResult(200,"查找成功",res);
+        }
+        return ApiResultHandler.buildApiResult(400,"查找失败",null);
+    }
     //更新试题
     @PutMapping("/short_Update/{questype}")
-    public ApiResult updateQues(@RequestBody ShortQues shortQues, @PathVariable("questype") String questype) {
+    public ApiResult updateQues(@RequestBody ShortQues shortQues) {
         int res;
         res=shortQuesService.update(shortQues);
         if (res != 0) {
