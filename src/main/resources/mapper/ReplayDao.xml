@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.exam.dao.ReplayDao">
 
-    <resultMap type="com.exam.entity.Replay" id="ReplayMap">
+  <!--  <resultMap type="com.exam.entity.Replay" id="ReplayMap">
         <result property="messageid" column="messageId" jdbcType="INTEGER"/>
         <result property="replayid" column="replayId" jdbcType="INTEGER"/>
         <result property="replay" column="replay" jdbcType="VARCHAR"/>
         <result property="replaytime" column="replayTime" jdbcType="OTHER"/>
-    </resultMap>
+    </resultMap>-->
 
-    <!--查询单个-->
+   <!-- &lt;!&ndash;查询单个&ndash;&gt;
     <select id="queryById" resultMap="ReplayMap">
         select
           messageId, replayId, replay, replayTime
@@ -17,7 +17,7 @@
         where replayId = #{replayid}
     </select>
 
-    <!--查询指定行数据-->
+    &lt;!&ndash;查询指定行数据&ndash;&gt;
     <select id="queryAllByLimit" resultMap="ReplayMap">
         select
           messageId, replayId, replay, replayTime
@@ -25,7 +25,7 @@
         limit #{offset}, #{limit}
     </select>
 
-    <!--通过实体作为筛选条件查询-->
+    &lt;!&ndash;通过实体作为筛选条件查询&ndash;&gt;
     <select id="queryAll" resultMap="ReplayMap">
         select
           messageId, replayId, replay, replayTime
@@ -46,13 +46,13 @@
         </where>
     </select>
 
-    <!--新增所有列-->
+    &lt;!&ndash;新增所有列&ndash;&gt;
     <insert id="insert" keyProperty="replayid" useGeneratedKeys="true">
         insert into cqc_exam.replay(messageId, replay, replayTime)
         values (#{messageid}, #{replay}, #{replaytime})
     </insert>
 
-    <!--通过主键修改数据-->
+    &lt;!&ndash;通过主键修改数据&ndash;&gt;
     <update id="update">
         update cqc_exam.replay
         <set>
@@ -69,9 +69,9 @@
         where replayId = #{replayid}
     </update>
 
-    <!--通过主键删除-->
+    &lt;!&ndash;通过主键删除&ndash;&gt;
     <delete id="deleteById">
         delete from cqc_exam.replay where replayId = #{replayid}
-    </delete>
+    </delete>-->
 
 </mapper>

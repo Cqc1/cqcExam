@@ -1,35 +1,33 @@
 package com.exam.controller;
 
+import com.exam.entity.ApiResult;
 import com.exam.entity.Replay;
-import com.exam.service.ReplayService;
+import com.exam.service.impl.ReplayServiceImpl;
+import com.exam.util.ApiResultHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import java.util.List;
 
-/**
- * 回复表(Replay)表控制层
- *
- * @author chenqiancheng
- * @since 2020-03-12 20:53:27
- */
 @RestController
-@RequestMapping("replay")
 public class ReplayController {
-    /**
-     * 服务对象
-     */
-    @Resource
-    private ReplayService replayService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public Replay selectOne(Integer id) {
-        return this.replayService.queryById(id);
+    @Autowired
+    private ReplayServiceImpl replayService;
+
+    @PostMapping("/replay")
+    public ApiResult add(@RequestBody Replay replay) {
+        int data = replayService.add(replay);
+        if (data != 0) {
+            return ApiResultHandler.buildApiResult(200,"添加成功！",data);
+        } else {
+            return ApiResultHandler.buildApiResult(400,"添加失败！",null);
+        }
     }
 
+    @GetMapping("/replay/{messageId}")
+    public ApiResult findAllById(@PathVariable("messageId") Integer messageId) {
+        List<Replay> res = replayService.findAllById(messageId);
+        return ApiResultHandler.buildApiResult(200,"根据messageId查询",res);
+    }
 }

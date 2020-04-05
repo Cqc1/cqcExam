@@ -1,40 +1,22 @@
 package com.exam.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
-/**
- * 留言表(Message)实体类
- *
- * @author chenqiancheng
- * @since 2020-03-12 20:53:27
- */
 @Data
-public class Message implements Serializable {
-
-    private static final long serialVersionUID = 847821963800708552L;
-    /**
-    * 留言编号
-    */
-    //自增主键注释
-    @TableId(type= IdType.AUTO)
+public class Message {
     private Integer id;
-    /**
-    * 标题
-    */
+    private Integer temp_id;//解决id为null创建的一个临时id
+
     private String title;
-    /**
-    * 留言内容
-    */
+
     private String content;
-    /**
-    * 留言时间
-    */
-    private Object time;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone="GMT+8")
+    private Date time;
 
-
+    List<Replay> replays;   //一对多关系，评论信息
 }

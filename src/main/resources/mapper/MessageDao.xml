@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.exam.dao.MessageDao">
 
-    <resultMap type="com.exam.entity.Message" id="MessageMap">
+    <!--<resultMap type="com.exam.entity.Message" id="MessageMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="time" column="time" jdbcType="OTHER"/>
-    </resultMap>
+    </resultMap>-->
 
-    <!--查询单个-->
+    <!--&lt;!&ndash;查询单个&ndash;&gt;
     <select id="queryById" resultMap="MessageMap">
         select
           id, title, content, time
@@ -17,7 +17,7 @@
         where id = #{id}
     </select>
 
-    <!--查询指定行数据-->
+    &lt;!&ndash;查询指定行数据&ndash;&gt;
     <select id="queryAllByLimit" resultMap="MessageMap">
         select
           id, title, content, time
@@ -25,7 +25,7 @@
         limit #{offset}, #{limit}
     </select>
 
-    <!--通过实体作为筛选条件查询-->
+    &lt;!&ndash;通过实体作为筛选条件查询&ndash;&gt;
     <select id="queryAll" resultMap="MessageMap">
         select
           id, title, content, time
@@ -46,13 +46,13 @@
         </where>
     </select>
 
-    <!--新增所有列-->
+    &lt;!&ndash;新增所有列&ndash;&gt;
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into cqc_exam.message(title, content, time)
         values (#{title}, #{content}, #{time})
     </insert>
 
-    <!--通过主键修改数据-->
+    &lt;!&ndash;通过主键修改数据&ndash;&gt;
     <update id="update">
         update cqc_exam.message
         <set>
@@ -69,9 +69,9 @@
         where id = #{id}
     </update>
 
-    <!--通过主键删除-->
+    &lt;!&ndash;通过主键删除&ndash;&gt;
     <delete id="deleteById">
         delete from cqc_exam.message where id = #{id}
-    </delete>
+    </delete>-->
 
 </mapper>

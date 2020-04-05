@@ -96,4 +96,15 @@ public class StudentController {
             return ApiResultHandler.buildApiResult(400,"添加失败",null);
         }
     }
+    @PostMapping("/studentAll")
+    public ApiResult addAll(@RequestBody List<Student> student) {
+        for(int i=0;i<student.size();i++){
+            if(student.get(i)!=null){
+                studentService.insert(student.get(i));
+            }else{
+                return ApiResultHandler.buildApiResult(400,"添加失败",null);
+            }
+        }
+        return ApiResultHandler.buildApiResult(200,"添加成功",null);
+    }
 }

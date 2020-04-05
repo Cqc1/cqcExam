@@ -1,69 +1,28 @@
 package com.exam.dao;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.exam.entity.Replay;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-
-/**
- * 回复表(Replay)表数据库访问层
- *
- * @author chenqiancheng
- * @since 2020-03-12 20:53:27
- */
 @Mapper
-public interface ReplayDao extends BaseMapper<Replay> {
+public interface ReplayDao {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param replayid 主键
-     * @return 实例对象
-     */
-    Replay queryById(Integer replayid);
+    @Select("select messageId,replayId,replay,replayTime from replay")
+    List<Replay> findAll();
 
-    /**
-     * 查询指定行数据
-     *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
-     * @return 对象列表
-     */
-    List<Replay> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    @Select("select messageId,replayId,replay,replayTime from replay where messageId = #{messageId}")
+    List<Replay> findAllById(Integer messageId);
 
+    @Select("select messageId,replayId,replay,replayTime from replay where messageId = #{messageId}")
+    Replay findById(Integer messageId);
 
-    /**
-     * 通过实体作为筛选条件查询
-     *
-     * @param replay 实例对象
-     * @return 对象列表
-     */
-    List<Replay> queryAll(Replay replay);
+    @Delete("delete from replay where replayId = #{replayId}")
+    int delete(Integer replayId);
 
-    /**
-     * 新增数据
-     *
-     * @param replay 实例对象
-     * @return 影响行数
-     */
-    int insert(Replay replay);
-
-    /**
-     * 修改数据
-     *
-     * @param replay 实例对象
-     * @return 影响行数
-     */
+    @Update("update replay set title = #{title}, replay = #{replay}, replayTime = #{replayTime} where replayId = #{replayId}")
     int update(Replay replay);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param replayid 主键
-     * @return 影响行数
-     */
-    int deleteById(Integer replayid);
-
+    @Options(useGeneratedKeys = true,keyProperty = "replayId")
+    @Insert("insert into replay(messageId,replay,replayTime) values(#{messageId}, #{replay},#{replayTime})")
+    int add(Replay replay);
 }

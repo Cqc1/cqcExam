@@ -73,7 +73,8 @@ public class ExamController {
                 Date beginData = df.parse(exams.get(i).getExdate());
                 System.out.println(date.toString() +"=====" +beginData.toString());
                 System.out.println((dateTool.getDatePoor(date,beginData)) + "分钟");
-                if(date.before(beginData)&&exams.get(i).getIsexam()!=2){
+                if((date.before(beginData)&&exams.get(i).getIsexam()!=2)
+                        ||(((dateTool.getDatePoor(date,beginData))<=(exams.get(i).getExtime()).longValue())&&exams.get(i).getIsexam()!=2)){
                     exams.get(i).setIsexam(0);
                     exams.get(i).setExamid(exams.get(i).getExamid());
                     examService.update(exams.get(i));
