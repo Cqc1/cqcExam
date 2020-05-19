@@ -60,4 +60,9 @@ public class JudgeQuesServiceImpl implements JudgeQuesService {
     public List<JudgeQues> findByIdAndType(Integer paperid) {
         return judgeQuesDao.findByIdAndType(paperid);
     }
+
+    @Override
+    public List<Integer> findByMore(Integer courseid, String level, String chapter, Integer quesNum) {
+        return judgeQuesDao.findByMore(courseid, level, chapter, quesNum);
+    }
 }

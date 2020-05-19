@@ -55,4 +55,8 @@ public interface SingQuesDao {
     //查询试题详细信息
     @Select("select * from sing_ques where quesId in (select quesId from ques_paper where quesType = 1 and paperId = #{paperid})")
     List<SingQues> findByIdAndType(Integer paperid);
+
+    //多条件随机组卷获取试题
+    @Select("select quesId from sing_ques where courseId =#{courseid} and level=#{level} and chapter=#{chapter} order by rand() desc limit #{quesNum}")
+    List<Integer> findByMore(Integer courseid,String level,String chapter,Integer quesNum);
 }

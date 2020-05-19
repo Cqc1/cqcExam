@@ -34,4 +34,7 @@ public interface ShortQuesService {
     //查询试题详细信息
     List<ShortQues> findByIdAndType(Integer questype,Integer paperid);
 
+    //多条件随机组卷获取试题
+    List<Integer> findByMore(Integer questype,Integer courseid,String level,String chapter,Integer quesNum);
+
 }

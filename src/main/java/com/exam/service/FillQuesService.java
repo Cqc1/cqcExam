@@ -32,4 +32,7 @@ public interface FillQuesService {
     //查询试题详细信息
     List<FillQues> findByIdAndType(Integer paperid);
 
+    //多条件随机组卷获取试题
+    List<Integer> findByMore(Integer courseid,String level,String chapter,Integer quesNum);
+
 }

@@ -1,6 +1,7 @@
 package com.exam.service;
 
 import com.exam.entity.Admin;
+
 import java.util.List;
 
 /**
@@ -43,6 +44,8 @@ public interface AdminService {
      * @return 实例对象
      */
     Admin update(Admin admin);
+
+    int updatePwd(Admin admin);
 
     /**
      * 通过主键删除数据

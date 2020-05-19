@@ -66,6 +66,11 @@ public class AdminServiceImpl implements AdminService {
         return this.queryById(admin.getAdminid());
     }
 
+    @Override
+    public int updatePwd(Admin admin) {
+        return adminDao.update(admin);
+    }
+
     /**
      * 通过主键删除数据
      *

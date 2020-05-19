@@ -74,6 +74,7 @@ public class StudentController {
 
     @PutMapping("/studentPWD")
     public ApiResult updatePwd(@RequestBody Student student) {
+        System.out.println(student.getStuid());
         studentService.updatePwd(student);
         return ApiResultHandler.buildApiResult(200,"密码更新成功",null);
     }

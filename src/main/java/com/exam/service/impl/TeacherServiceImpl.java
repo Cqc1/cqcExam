@@ -62,6 +62,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public int updatePwd(Teacher teacher) {
+        return teacherDao.update(teacher);
+    }
+
+    @Override
     public int deleteById(Integer teacherid) {
         return teacherDao.deleteById(teacherid);
     }

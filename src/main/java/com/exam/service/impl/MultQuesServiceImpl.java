@@ -60,4 +60,9 @@ public class MultQuesServiceImpl implements MultQuesService {
     public List<MultQues> findByIdAndType(Integer paperid) {
         return multQuesDao.findByIdAndType(paperid);
     }
+
+    @Override
+    public List<Integer> findByMore(Integer courseid, String level, String chapter, Integer quesNum) {
+        return multQuesDao.findByMore(courseid, level, chapter, quesNum);
+    }
 }

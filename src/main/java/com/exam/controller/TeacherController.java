@@ -70,6 +70,12 @@ public class TeacherController {
         return ApiResultHandler.success(teacherService.update(teacher));
     }
 
+    @PutMapping("/teacherPWD")
+    public ApiResult updatePwd(@RequestBody Teacher teacher) {
+        teacherService.updatePwd(teacher);
+        return ApiResultHandler.buildApiResult(200,"密码更新成功",null);
+    }
+
     @PostMapping("/teacher")
     public ApiResult add(@RequestBody Teacher teacher){
         return ApiResultHandler.success(teacherService.insert(teacher));

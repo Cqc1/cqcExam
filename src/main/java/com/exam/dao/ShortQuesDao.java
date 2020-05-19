@@ -58,4 +58,8 @@ public interface ShortQuesDao {
     //查询试题详细信息
     @Select("select * from short_ques where quesId in (select quesId from ques_paper where quesType = #{questype} and paperId = #{paperid})")
     List<ShortQues> findByIdAndType(Integer questype,Integer paperid);
+
+    //多条件随机组卷获取试题
+    @Select("select quesId from short_ques where quesType=#{questype} and courseId =#{courseid} and level=#{level} and chapter=#{chapter} order by rand() desc limit #{quesNum}")
+    List<Integer> findByMore(Integer questype,Integer courseid,String level,String chapter,Integer quesNum);
 }

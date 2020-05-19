@@ -55,6 +55,8 @@ public interface TeacherService {
      */
     int update(Teacher teacher);
 
+    int updatePwd(Teacher teacher);
+
     /**
      * 通过主键删除数据
      *

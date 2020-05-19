@@ -60,4 +60,9 @@ public class SingQuesServiceImpl implements SingQuesService {
     public List<SingQues> findByIdAndType(Integer paperid) {
         return singQuesDao.findByIdAndType(paperid);
     }
+
+    @Override
+    public List<Integer> findByMore(Integer courseid, String level, String chapter, Integer quesNum) {
+        return singQuesDao.findByMore(courseid, level, chapter, quesNum);
+    }
 }
