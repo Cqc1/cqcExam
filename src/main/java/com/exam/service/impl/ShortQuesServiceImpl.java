@@ -70,4 +70,9 @@ public class ShortQuesServiceImpl implements ShortQuesService {
     public List<Integer> findByMore(Integer questype, Integer courseid, String level, String chapter, Integer quesNum) {
         return shortQuesDao.findByMore(questype, courseid, level, chapter, quesNum);
     }
+
+    @Override
+    public Integer findNum(Integer questype,Integer courseid, String level) {
+        return shortQuesDao.findNum(questype, courseid, level);
+    }
 }

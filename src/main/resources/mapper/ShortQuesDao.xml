@@ -36,4 +36,57 @@
             <result property="quesname" column="quesName"/>
         </association>
     </resultMap>
+    <!--多条件获取试题总数量-->
+    <select id="findNum"  resultType="java.lang.Integer">
+        select
+        COUNT(quesId) as num
+        from short_ques
+        <where>
+            <if test="level == 3">
+                and level between 1 and 3
+            </if>
+            <if test="level == 7">
+                and level between 4 and 7
+            </if>
+            <if test="level == 10">
+                and level between 8 and 10
+            </if>
+            <if test="questype != null">
+                and quesType = #{questype}
+            </if>
+            <if test="courseid != null">
+                and courseId = #{courseid}
+            </if>
+        </where>
+    </select>
+
+    <!--多条件随机组卷获取试题-->
+    <select id="findByMore"  resultType="java.lang.Integer">
+        select
+        quesId
+        from short_ques
+        <where>
+            <if test="level == 3">
+                and level between 1 and 3
+            </if>
+            <if test="level == 7">
+                and level between 4 and 7
+            </if>
+            <if test="level == 10">
+                and level between 8 and 10
+            </if>
+            <if test="questype != null">
+                and quesType = #{questype}
+            </if>
+            <if test="courseid != null">
+                and courseId = #{courseid}
+            </if>
+            <if test="chapter != null">
+                and chapter = #{chapter}
+            </if>
+            <if test="quesNum != null">
+                order by rand() desc limit #{quesNum}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -35,4 +35,6 @@ public interface JudgeQuesService {
     //多条件随机组卷获取试题
     List<Integer> findByMore(Integer courseid,String level,String chapter,Integer quesNum);
 
+    //多条件获取试题总数量
+    Integer findNum(Integer courseid,String level);
 }

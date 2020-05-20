@@ -60,7 +60,7 @@
     <select id="findAll" resultMap="ExamResultMap">
         select
           examId,exname, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
-           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
+           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, exam.description, isExam,
            major.major as major,institution.instituName as instituname
         from exam,paper,course,major,institution
         where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
@@ -70,7 +70,7 @@
     <select id="findPage" resultMap="ExamResultMap">
         select
           examId,exname, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
-           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
+           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, exam.description, isExam,
            major.major as major,institution.instituName as instituname
         from exam,paper,course,major,institution
         where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
@@ -81,7 +81,7 @@
     <select id="findByMajor" resultMap="ExamResultMap">
         select
           examId,exname, paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
-           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
+           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, exam.description, isExam,
            major.major as major,institution.instituName as instituname
         from exam,paper,course,major,institution
         where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
@@ -92,7 +92,7 @@
     <select id="queryById" resultMap="ExamResultMap">
         select
           examId,exname,  paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
-           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
+           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, exam.description, isExam,
            major.major as major,institution.instituName as instituname
         from exam,paper,course,major,institution
         where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
@@ -104,7 +104,7 @@
     <select id="querByMajorId" resultMap="ExamResultMap">
         select
           examId,exname,  paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
-           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
+           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, exam.description, isExam,
            major.major as major,institution.instituName as instituname
         from exam,paper,course,major,institution
         where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId
@@ -116,7 +116,7 @@
     <select id="querByexName" resultMap="ExamResultMap">
         select
           examId,exname,  paper.paperId, paper.courseid,course.couName as couname, paper.totalScore as totalscore,
-           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, paper.description, isExam,
+           majors, grade, term, exam.majorId, exam.institutionId, exTime, exPlace, exDate, exam.description, isExam,
            major.major as major,institution.instituName as instituname
         from exam,paper,course,major,institution
         where exam.paperId=paper.paperId and exam.courseId=paper.courseId and paper.courseId=course.courseId

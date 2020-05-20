@@ -60,6 +60,10 @@ public interface ShortQuesDao {
     List<ShortQues> findByIdAndType(Integer questype,Integer paperid);
 
     //多条件随机组卷获取试题
-    @Select("select quesId from short_ques where quesType=#{questype} and courseId =#{courseid} and level=#{level} and chapter=#{chapter} order by rand() desc limit #{quesNum}")
+    /*@Select("select quesId from short_ques where quesType=#{questype} and courseId =#{courseid} and level=#{level} and chapter=#{chapter} order by rand() desc limit #{quesNum}")*/
     List<Integer> findByMore(Integer questype,Integer courseid,String level,String chapter,Integer quesNum);
+
+    //多条件获取试题总数量
+    /*@Select("select COUNT(quesId) as num from short_ques where quesType=#{questype} and courseId =#{courseid} and level=#{level} ")*/
+    Integer findNum(Integer questype,Integer courseid,String level);
 }

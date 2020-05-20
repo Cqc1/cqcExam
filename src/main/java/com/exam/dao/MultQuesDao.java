@@ -57,6 +57,10 @@ public interface MultQuesDao {
     List<MultQues> findByIdAndType(Integer paperid);
 
     //多条件随机组卷获取试题
-    @Select("select quesId from mult_ques where courseId =#{courseid} and level=#{level} and chapter=#{chapter} order by rand() desc limit #{quesNum}")
+    /*@Select("select quesId from mult_ques where courseId =#{courseid} and level=#{level} and chapter=#{chapter} order by rand() desc limit #{quesNum}")*/
     List<Integer> findByMore(Integer courseid,String level,String chapter,Integer quesNum);
+
+    //多条件获取试题总数量
+    /*@Select("select COUNT(quesId) as num from mult_ques where courseId =#{courseid} and level=#{level} ")*/
+    Integer findNum(Integer courseid,String level);
 }

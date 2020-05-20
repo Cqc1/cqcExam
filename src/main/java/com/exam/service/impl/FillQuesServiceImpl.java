@@ -66,4 +66,9 @@ public class FillQuesServiceImpl implements FillQuesService {
     public List<Integer> findByMore(Integer courseid, String level, String chapter, Integer quesNum) {
         return fillQuesDao.findByMore(courseid, level, chapter, quesNum);
     }
+
+    @Override
+    public Integer findNum(Integer courseid, String level) {
+        return fillQuesDao.findNum(courseid, level);
+    }
 }

@@ -37,4 +37,7 @@ public interface ShortQuesService {
     //多条件随机组卷获取试题
     List<Integer> findByMore(Integer questype,Integer courseid,String level,String chapter,Integer quesNum);
 
+    //多条件获取试题总数量
+    Integer findNum(Integer questype,Integer courseid,String level);
+
 }

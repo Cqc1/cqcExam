@@ -65,4 +65,9 @@ public class SingQuesServiceImpl implements SingQuesService {
     public List<Integer> findByMore(Integer courseid, String level, String chapter, Integer quesNum) {
         return singQuesDao.findByMore(courseid, level, chapter, quesNum);
     }
+
+    @Override
+    public Integer findNum(Integer courseid, String level) {
+        return singQuesDao.findNum(courseid, level);
+    }
 }
