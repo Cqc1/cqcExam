@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("com.exam.dao")
 public class CqcApplication {
     public static void main(String[] args) {
+
         SpringApplication.run(CqcApplication.class, args);
     }
 
